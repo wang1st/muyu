@@ -139,7 +139,21 @@ apksigner sign --ks woodfish.jks --out woodfish.apk base.apk
 
 > 首次运行会自动用 `keytool` 生成 `woodfish.jks`。**这个密钥务必保留**，否则升级安装会报 `INSTALL_FAILED_UPDATE_INCOMPATIBLE`。
 
-### 3. 安装
+### 3. GitHub Actions 云端构建（可选）
+
+仓库自带 `.github/workflows/build.yml`：推送到 `main` 自动构建，打 `v*` tag 会自动构建并挂到 Release。同样不依赖 Gradle。
+
+若希望云端产物能**覆盖升级**你手机上本地构建的版本，需要在仓库 Secrets 里放同一把签名密钥：
+
+| Secret | 内容 |
+|---|---|
+| `KEYSTORE_BASE64` | `base64 -w0 woodfish.jks` 的输出 |
+| `KEYSTORE_PASS` | keystore 密码 |
+| `KEYSTORE_ALIAS` | 密钥别名（默认 `minis`） |
+
+没有配置时，CI 会用一次性密钥签名，产物只能全新安装（不能覆盖升级）。
+
+### 4. 安装
 
 ```bash
 # 有 Shizuku / adb 均可

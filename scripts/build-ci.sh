@@ -56,4 +56,5 @@ fi
 # 4) 版本号写入文件名
 VER="$(grep -o 'android:versionName="[^"]*"' "$ROOT/app/src/main/AndroidManifest.xml" | head -1 | cut -d'"' -f2)"
 cp "$OUT/muyu-ci.apk" "$OUT/muyu-v${VER}.apk"
+rm -f "$OUT/muyu-ci.apk"   # 只留带版本号的那份
 ls -lh "$OUT"
