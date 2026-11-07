@@ -4,8 +4,9 @@
 > **A minimal wooden-fish (木鱼) home-screen widget — built entirely on a phone, without a computer.**
 
 <p align="center">
-  <img src="docs/preview-widget.png" width="300" alt="桌面小部件" />
-  <img src="docs/preview-app.png" width="300" alt="App 设置页" />
+  <img src="docs/preview-widget.png" width="330" alt="桌面小部件" />
+  <img src="docs/preview-settings.png" width="280" alt="设置页" />
+  <img src="docs/preview-about.png" width="280" alt="關於页" />
 </p>
 
 ---
