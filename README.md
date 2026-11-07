@@ -4,10 +4,23 @@
 > **A minimal wooden-fish (木鱼) home-screen widget — built entirely on a phone, without a computer.**
 
 <p align="center">
+  <a href="../../releases/latest"><img src="https://img.shields.io/badge/download-APK-E8C878?style=flat-square" alt="Download APK"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-6B5A44?style=flat-square" alt="MIT"></a>
+</p>
+
+<p align="center">
   <img src="docs/preview-widget.png" width="330" alt="桌面小部件" />
   <img src="docs/preview-settings.png" width="280" alt="设置页" />
   <img src="docs/preview-about.png" width="280" alt="關於页" />
 </p>
+
+---
+
+## ✦ 下载
+
+安装包不放在仓库里（保持仓库轻量），请到 **[Releases](../../releases/latest)** 下载最新的 `muyu-vX.Y.Z.apk`，直接安装即可。
+
+> 首次安装若提示"未知来源"，允许一次即可；MIUI/HyperOS 还需为应用打开**自启动**（原因见下方"平台坑"）。
 
 ---
 
@@ -89,8 +102,7 @@
 ├── build.sh                   # 一键构建（Termux）
 ├── muyu_shape.py              # 剪影生成（钢笔路径 + SVG 导出）
 ├── gen_sounds.py              # 音效合成（木鱼 ×3 + 磬）
-├── gen_icon.py                # 图标生成（含 Android 13 主题图标）
-└── build/woodfish-v0.9.apk    # 可安装的成品
+└── gen_icon.py                # 图标生成（含 Android 13 主题图标）
 ```
 
 ---
