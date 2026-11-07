@@ -262,7 +262,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="桌面小部件若敲擊無反應，請在系統設置中允許本應用自啟動。"
+            android:text="關於"
+            android:textColor="#B89E78"
+            android:textSize="16sp"
+            android:fontFamily="serif" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="5dp"
+            android:text="桌面敲木魚，功德記在心。\n\n· 敲擊：桌面小部件點一下即敲，木聲 + 震動，今日功德 +1\n· 每滿 108 次響一聲磬，計一輪（跨天連續累計）\n· 今日功德跨零點自動歸零，累計與輪次永久保留\n· 經文：可選金剛經 / 心經，方框逐字前進，讀滿循環\n· 回向：清空今日數字並記入修習記錄，不動經文位置\n\n提示：若桌面點擊無反應，請在系統設置中允許本應用「自啟動」（MIUI 的後台凍結會攔截點擊）"
+            android:textColor="#7A6852"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="聯繫"
+            android:textColor="#B89E78"
+            android:textSize="16sp"
+            android:fontFamily="serif" />
+
+        <TextView
+            android:id="@+id/link_weibo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="微博　@王药师"
+            android:textColor="#C8A050"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/link_twitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="推特　@qq831261"
+            android:textColor="#C8A050"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
             android:textColor="#4A3C2E"
             android:textSize="11sp" />
     </LinearLayout>

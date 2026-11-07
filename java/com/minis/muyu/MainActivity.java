@@ -3,6 +3,8 @@ package com.minis.muyu;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -113,7 +115,28 @@ public class MainActivity extends Activity {
             }
         });
 
+        findViewById(R.id.link_weibo).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                openUrl("https://weibo.com/n/%E7%8E%8B%E8%8D%AF%E5%B8%88");
+            }
+        });
+        findViewById(R.id.link_twitter).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                openUrl("https://twitter.com/qq831261");
+            }
+        });
+        try {
+            String vn = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            ((TextView) findViewById(R.id.version)).setText("木魚 v" + vn + "　·　Minis 出品");
+        } catch (Exception ignored) {}
+
         refresh();
+    }
+
+    private void openUrl(String url) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        } catch (Exception ignored) {}
     }
 
     private void refresh() {

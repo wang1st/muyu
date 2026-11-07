@@ -68,3 +68,8 @@ gen_icon.py         图标生成（墨底 + 纸白剪影，含主题图标）
 - MIUI Greezer 会拦截后台广播：**需在系统设置里允许本应用自启动**，否则桌面点击无响应
 - Android 13+ 会忽略后台应用的 TOUCH 类振动，代码已改用 `USAGE_ALARM`
 - RemoteViews 不支持补间动画，敲击反馈用 2 帧位图切换实现
+
+## 聯繫
+
+- 微博：[@王药师](https://weibo.com/n/%E7%8E%8B%E8%8D%AF%E5%B8%88)
+- 推特：[@qq831261](https://twitter.com/qq831261)
