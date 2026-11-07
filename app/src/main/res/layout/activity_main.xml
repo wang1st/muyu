@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#120C08">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="木魚"
+            android:textColor="#B89E78"
+            android:textSize="22sp"
+            android:fontFamily="serif" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="0"
+            android:textColor="#E8C878"
+            android:textSize="54sp"
+            android:textStyle="bold"
+            android:fontFamily="serif" />
+
+        <TextView
+            android:id="@+id/total_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今日功德"
+            android:textColor="#6B5A44"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/rounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="第 1 輪 · 已完成 0 輪"
+            android:textColor="#B89E78"
+            android:textSize="14sp"
+            android:fontFamily="serif" />
+
+        <!-- 设置 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <CheckBox
+                android:id="@+id/sw_sound"
+                android:buttonTint="#C8A050"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="敲擊音"
+                android:textColor="#C9B294" />
+
+            <CheckBox
+                android:id="@+id/sw_sutra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="經文"
+                android:buttonTint="#C8A050"
+                android:textColor="#C9B294" />
+
+            <CheckBox
+                android:id="@+id/sw_vib"
+                android:buttonTint="#C8A050"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="震動"
+                android:textColor="#C9B294" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="數字位置"
+            android:textColor="#B89E78"
+            android:textSize="13sp" />
+
+        <RadioGroup
+            android:id="@+id/num_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/num_off"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="不顯示"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/num_under"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="木魚下"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/num_corner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="經文右下"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/sw_num_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:checked="true"
+            android:text="敲擊時數字加亮"
+            android:buttonTint="#C8A050"
+            android:textColor="#C9B294" />
+
+        <Button
+            android:id="@+id/btn_dedicate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:backgroundTint="#241A12"
+            android:text="回向"
+            android:textColor="#C8A050" />
+
+        <!-- 经文设置 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="經文"
+            android:textColor="#B89E78"
+            android:textSize="16sp"
+            android:fontFamily="serif" />
+
+        <RadioGroup
+            android:id="@+id/sutra_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/sutra_jj"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="金剛經"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/sutra_xj"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="心經"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="經文對比"
+            android:textColor="#B89E78"
+            android:textSize="13sp" />
+
+        <RadioGroup
+            android:id="@+id/contrast_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/ct_same"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="同色"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/ct_read"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已讀亮"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/ct_unread"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="未讀亮"
+                android:textColor="#C9B294"
+                android:buttonTint="#C8A050" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_reset_sutra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#241A12"
+            android:text="經文歸零（回到第一字）"
+            android:textColor="#C8A050" />
+
+        <!-- 功德簿 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="修習記錄"
+            android:textColor="#B89E78"
+            android:textSize="16sp"
+            android:fontFamily="serif" />
+
+        <TextView
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="6dp"
+            android:text="暫無回向記錄"
+            android:textColor="#7A6852"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="桌面小部件若敲擊無反應，請在系統設置中允許本應用自啟動。"
+            android:textColor="#4A3C2E"
+            android:textSize="11sp" />
+    </LinearLayout>
+</ScrollView>

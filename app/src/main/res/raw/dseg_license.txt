@@ -1,0 +1,3 @@
+DSEG Font Family — SIL Open Font License 1.1
+Copyright (c) 2017 keshikan (https://github.com/keshikan/DSEG)
+Used as the LED-style numeral face in this app.

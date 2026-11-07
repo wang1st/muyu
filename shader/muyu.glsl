@@ -1,0 +1,227 @@
+#version 300 es
+// 木鱼 3D — SDF raymarching（木纹程序化，无贴图）
+precision highp float;
+#ifndef MAX_STEPS
+#define MAX_STEPS 96
+#endif
+
+uniform vec2  uRes;
+uniform float uYaw;      // 左右旋转
+uniform float uPitch;    // 上下旋转
+uniform float uKnock;    // 敲击脉冲 0..1
+uniform float uChroma;   // 1=品红背景（离屏抠图用）
+out vec4 outColor;
+
+
+
+// ---------- 基础 ----------
+float smin(float a, float b, float k){
+    float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mix(b, a, h) - k * h * (1.0 - h);
+}
+float smax(float a, float b, float k){ return -smin(-a, -b, k); }
+
+float sdEllipsoid(vec3 p, vec3 r){
+    float k0 = length(p / r);
+    float k1 = length(p / (r * r));
+    return k0 * (k0 - 1.0) / max(k1, 1e-5);
+}
+float sdCapsule(vec3 p, vec3 a, vec3 b, float r){
+    vec3 pa = p - a, ba = b - a;
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    return length(pa - ba * h) - r;
+}
+
+// ---------- 噪声 ----------
+float hash13(vec3 p){
+    p = fract(p * 0.1031);
+    p += dot(p, p.yzx + 33.33);
+    return fract((p.x + p.y) * p.z);
+}
+float vnoise(vec3 p){
+    vec3 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    float n000 = hash13(i);
+    float n100 = hash13(i + vec3(1,0,0));
+    float n010 = hash13(i + vec3(0,1,0));
+    float n110 = hash13(i + vec3(1,1,0));
+    float n001 = hash13(i + vec3(0,0,1));
+    float n101 = hash13(i + vec3(1,0,1));
+    float n011 = hash13(i + vec3(0,1,1));
+    float n111 = hash13(i + vec3(1,1,1));
+    return mix(mix(mix(n000, n100, f.x), mix(n010, n110, f.x), f.y),
+               mix(mix(n001, n101, f.x), mix(n011, n111, f.x), f.y), f.z);
+}
+float fbm(vec3 p){
+    float a = 0.5, s = 0.0;
+    for (int i = 0; i < 4; i++){
+        s += a * vnoise(p);
+        p = p * 2.03 + vec3(1.7, 9.2, 3.4);
+        a *= 0.5;
+    }
+    return s;
+}
+
+// ---------- 木鱼 SDF ----------
+// 轴向约定：-x = 鱼头（宽圆），+x = 鱼尾（细，接把手）；y 向上；z 侧向
+// 嘴：水平细缝，x 越往尾越张开；尾部内腔更大
+// 调参：#define 手动改这些常量
+#define HEAD_C   vec3(-0.32, -0.02, 0.0)
+#define HEAD_R   vec3(0.70, 0.78, 0.70)
+#define TAIL_C   vec3( 0.22,  0.04, 0.0)
+#define TAIL_R   vec3( 0.48, 0.48, 0.54)
+#define CAV_C    vec3( 0.02,  0.00, 0.0)
+#define CAV_R    vec3( 0.28, 0.34, 0.85)
+#define SLIT_T0  0.022      // 头部缝厚
+#define SLIT_T1  0.175      // 尾部开口厚度
+#define SLIT_X0 -0.36       // 开始张开的位置
+#define SLIT_X1  0.02       // 完全张开的位置
+#define SLIT_LEN 0.62       // 缝半长（沿 x 的椭圆范围）
+
+float sdTorusX(vec3 p, float x0, float R, float r){
+    vec2 q = vec2(length(p.yz) - R, p.x - x0);
+    return length(q) - r;
+}
+
+float sdMuyu(vec3 p){
+    p.y /= (1.0 - 0.16 * uKnock);
+
+    // 鱼身：头大尾细的两瓣椭球平滑并集（蛋形）
+    float head = sdEllipsoid(p - HEAD_C, HEAD_R);
+    float tail = sdEllipsoid(p - TAIL_C, TAIL_R);
+    float d = smin(head, tail, 0.42);
+
+    // 嘴：水平细缝（头端细，尾端张开），限制在椭圆范围内
+    // 细缝：等宽、平直，末端藏在腔体内部（无渐细、无切线痕）
+    float t = SLIT_T0;
+    float slitShape = max(abs(p.y) - t, p.x + 0.05);
+    // 内腔（与缝平滑相接，避免薄片台阶）
+    float cav = sdEllipsoid(p - CAV_C, CAV_R) * 0.85;
+    float cut = smin(slitShape, cav, 0.36);   // 加大融合半径，消除唇缝折痕
+    // 切口不侵入脖颈区域，保持尾部实心
+    cut = max(cut, p.x - 0.30);   // 防越界
+    d = smax(d, -cut, 0.10);
+
+    // 把手：尾部脖颈 + 两道环槽 + 圆球端
+    float neck = sdCapsule(p, vec3(0.66, 0.0, 0.0), vec3(1.04, 0.0, 0.0), 0.13);
+    float ball = length(p - vec3(1.20, 0.0, 0.0)) - 0.15;
+    float handle = min(neck, ball);
+    handle = max(handle, -sdTorusX(p, 0.86, 0.13, 0.03));
+    handle = max(handle, -sdTorusX(p, 0.96, 0.13, 0.03));
+    d = min(d, handle);
+
+    return d;
+}
+
+vec3 calcNormal(vec3 p){
+    const vec2 e = vec2(1.0, -1.0) * 0.0012;
+    return normalize(e.xyy * sdMuyu(p + e.xyy) + e.yyx * sdMuyu(p + e.yyx) +
+                     e.yxy * sdMuyu(p + e.yxy) + e.xxx * sdMuyu(p + e.xxx));
+}
+
+float calcAO(vec3 p, vec3 n){
+    float occ = 0.0, sca = 1.0;
+    for (int i = 1; i <= 3; i++){
+        float h = 0.015 + 0.11 * float(i) / 3.0;
+        float dd = sdMuyu(p + n * h);
+        occ += (h - dd) * sca;
+        sca *= 0.82;
+    }
+    return clamp(1.0 - 2.2 * occ, 0.0, 1.0);
+}
+
+// ---------- 木纹材质 ----------
+vec3 woodColor(vec3 p){
+    vec3 q = p * vec3(1.0, 1.0, 1.0);
+    float warp = fbm(q * vec3(2.2, 3.4, 2.2));
+    float rings = sin((q.y * 3.2 + warp * 1.1 + q.x * 0.3) * 40.0);
+    float t = smoothstep(-0.85, 0.85, rings);
+    vec3 cLight = vec3(0.80, 0.55, 0.30);
+    vec3 cDark  = vec3(0.56, 0.33, 0.145);
+    vec3 col = mix(cDark, cLight, 0.48 + 0.06 * t);
+    // 顺纹细条（沿 y 方向拉长）
+    float streak = fbm(q * vec3(3.0, 34.0, 3.0));
+    col *= 0.93 + 0.14 * streak;
+    float fine = fbm(q * vec3(14.0, 48.0, 14.0));
+    col *= 0.95 + 0.10 * fine;
+    return col;
+}
+
+// ---------- 相机 ----------
+mat3 rotY(float a){ float c = cos(a), s = sin(a); return mat3(c,0,-s, 0,1,0, s,0,c); }
+mat3 rotX(float a){ float c = cos(a), s = sin(a); return mat3(1,0,0, 0,c,s, 0,-s,c); }
+
+void main(){
+    vec2 frag = gl_FragCoord.xy;
+    vec2 uv = (frag - 0.5 * uRes) / uRes.y;
+
+    mat3 R = rotY(uYaw) * rotX(uPitch);
+    vec3 ro = R * vec3(0.0, 0.0, 10.2) + vec3(0.0, 0.0, 0.0);
+    vec3 rd = normalize(R * vec3(uv * 1.08, -1.9));
+
+    // 步进
+    float t = 0.0;
+    float d = 0.0;
+    bool hit = false;
+    for (int i = 0; i < MAX_STEPS; i++){
+        vec3 p = ro + rd * t;
+        d = sdMuyu(p);
+        if (d < 0.0015){ hit = true; break; }
+        t += d;
+        if (t > 16.0) break;
+    }
+
+    // 背景
+    vec3 bg = mix(vec3(0.030, 0.024, 0.019), vec3(0.075, 0.055, 0.038),
+                  smoothstep(-0.6, 0.8, uv.y));
+    if (uChroma > 0.5) bg = vec3(1.0, 0.0, 1.0);
+    vec3 col = bg;
+
+    if (hit){
+        vec3 p = ro + rd * t;
+        vec3 n = calcNormal(p);
+        float ao = calcAO(p, n);
+
+        vec3 alb = woodColor(p);
+
+        // 主光（左上偏前）
+        vec3 L1 = normalize(vec3(-0.55, 0.75, 0.55));
+        float dif = clamp(dot(n, L1), 0.0, 1.0);
+        vec3 H = normalize(L1 - rd);
+        float spe = pow(clamp(dot(n, H), 0.0, 1.0), 90.0) * 0.22;
+        // 轮廓逆光
+        vec3 L2 = normalize(vec3(0.65, 0.25, -0.65));
+        float rim = pow(clamp(1.0 + dot(rd, n), 0.0, 1.0), 3.0) * 0.6;
+        float dif2 = clamp(dot(n, L2), 0.0, 1.0);
+
+        vec3 warm = vec3(1.0, 0.72, 0.45);
+        col = alb * (0.05 + 1.10 * dif * ao);
+        col += alb * warm * dif2 * 0.10 * ao;          // 冷侧暖反光
+        col += vec3(1.0, 0.93, 0.82) * spe * ao;         // 高光
+        col += warm * rim * 0.18;                        // 轮廓光
+        // 口内暖反弹
+        float cav = clamp(1.0 - ao, 0.0, 1.0);
+        col += vec3(0.35, 0.16, 0.06) * cav * 0.35;
+        // 敲击闪白
+        col += vec3(1.0, 0.9, 0.75) * uKnock * 0.30;
+    }
+
+    // 地面接触阴影（解析）
+    float shadow = 0.0;
+    if (!hit && uChroma < 0.5){
+        float tt = (ro.y + 0.95) / max(-rd.y, 1e-4);
+        if (tt > 0.0){
+            vec3 gp = ro + rd * tt;
+            vec2 g = gp.xz;
+            shadow = exp(-dot(g * vec2(1.0, 1.7), g * vec2(1.0, 1.7)) * 3.2) * 0.55;
+            col = mix(col, vec3(0.012, 0.010, 0.008), shadow);
+        }
+    }
+
+    // 暗角
+    float vig = 1.0 - 0.35 * dot(uv, uv) * (uChroma < 0.5 ? 1.0 : 0.0);
+    col *= vig;
+    // 色调
+    col = pow(col, vec3(0.92));
+    outColor = vec4(col, 1.0);
+}

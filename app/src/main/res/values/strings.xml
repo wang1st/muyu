@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">电子木鱼</string>
+    <string name="widget_desc">敲木鱼，积功德</string>
+    <string name="dedicate">回向</string>
+</resources>

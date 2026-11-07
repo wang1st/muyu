@@ -1,0 +1,30 @@
+# 构建中间产物
+stage/
+gen/
+build/base.apk
+build/unsigned.apk
+build/*.pem
+build/MANIFEST.MF
+build/CERT.SF
+build/CERT.RSA
+build/classes.dex
+build/key.jks
+
+# 临时截图/中间稿
+shot*.png
+shot*.jpg
+svg_render.jpg
+device_*.png
+ref_muyu.png
+dseg7.ttf
+
+# 旧实验脚本（不进主仓库，需要时从历史找）
+mock_*.py
+mockup_*.py
+extract*.py
+redraw_muyu.py
+trace_ref.py
+dexgen.py
+pack_sign.py
+install.py
+install.py
