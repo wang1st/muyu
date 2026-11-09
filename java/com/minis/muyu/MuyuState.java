@@ -30,9 +30,17 @@ public final class MuyuState {
     private static final String K_SUTRA_SEL_V2 = "sutraSelV2";
     private static final String K_NUM_POS = "numPos";
     private static final String K_NUM_HOT = "numHot";
+    private static final String K_PAPER = "paper";
     private static final String K_TONE_HZ = "toneHz";
     private static final String K_TONE_BRIGHT = "toneBright";
     private static final String K_TONE_DECAY = "toneDecay";
+    private static final String K_TEXT_INK = "textInk";
+    private static final String K_TEXT_SCRIM = "textScrim";
+    private static final String K_MUYU_JADE = "muyuJade";
+    private static final String K_LAST_TAB = "lastTab";
+    private static final String J_BRIGHT = "jBright", J_WARM = "jWarm", J_MATTE = "jMatte",
+            J_TRANS = "jTrans", J_VOL = "jVol", J_MOUTH = "jMouth",
+            J_SH = "jSh", J_SPREAD = "jSpread", J_OFF = "jOff";
     private static final String K_SUTRA_CONTRAST = "sutraContrast";
 
     private MuyuState() {}
@@ -66,6 +74,49 @@ public final class MuyuState {
     public static boolean sutraOn(Context c) { return sp(c).getBoolean(K_SUTRA_ON, true); }
     public static void setSutraOn(Context c, boolean v) { sp(c).edit().putBoolean(K_SUTRA_ON, v).apply(); }
 
+    public static int lastTab(Context c) { return sp(c).getInt(K_LAST_TAB, 0); }
+    public static void setLastTab(Context c, int v) { sp(c).edit().putInt(K_LAST_TAB, v).apply(); }
+
+    /** 玉参数（0..100），默认即用户给的样参 */
+    public static int jadeBright(Context c) { return sp(c).getInt(J_BRIGHT, 55); }
+    public static int jadeWarm(Context c) { return sp(c).getInt(J_WARM, 62); }
+    public static int jadeMatte(Context c) { return sp(c).getInt(J_MATTE, 90); }
+    public static int jadeTranslucent(Context c) { return sp(c).getInt(J_TRANS, 65); }
+    public static int jadeVolume(Context c) { return sp(c).getInt(J_VOL, 65); }
+    public static int jadeMouth(Context c) { return sp(c).getInt(J_MOUTH, 50); }
+    public static int jadeShadow(Context c) { return sp(c).getInt(J_SH, 38); }
+    public static int jadeShadowSpread(Context c) { return sp(c).getInt(J_SPREAD, 60); }
+    public static int jadeShadowOffset(Context c) { return sp(c).getInt(J_OFF, 20); }
+
+    public static void setJade(Context c, int bright, int warm, int matte, int trans, int vol,
+                               int mouth, int sh, int spread, int off) {
+        sp(c).edit().putInt(J_BRIGHT, bright).putInt(J_WARM, warm).putInt(J_MATTE, matte)
+                .putInt(J_TRANS, trans).putInt(J_VOL, vol).putInt(J_MOUTH, mouth)
+                .putInt(J_SH, sh).putInt(J_SPREAD, spread).putInt(J_OFF, off).apply();
+        JadeRender.invalidate();
+    }
+
+    /** 木鱼风格：false 剪影 / true 和田玉立体 */
+    public static boolean muyuJade(Context c) { return sp(c).getBoolean(K_MUYU_JADE, false); }
+    public static void setMuyuJade(Context c, boolean v) { sp(c).edit().putBoolean(K_MUYU_JADE, v).apply(); }
+
+    /** 字色：0 紙白（深色壁纸）/ 1 墨（浅色壁纸） */
+    public static int textInk(Context c) {
+        SharedPreferences p = sp(c);
+        if (!p.contains(K_TEXT_INK) && p.contains("textShade")) {
+            int old = p.getInt("textShade", 0);
+            p.edit().putInt(K_TEXT_INK, old >= 3 ? 1 : 0).apply();
+        }
+        return p.getInt(K_TEXT_INK, 0);
+    }
+    public static void setTextInk(Context c, int v) { sp(c).edit().putInt(K_TEXT_INK, v).apply(); }
+
+    /** 文字底衬透明度 0..60（%）：白字配暗衬、墨字配白衬 */
+    public static int textScrim(Context c) { return sp(c).getInt(K_TEXT_SCRIM, 0); }
+    public static void setTextScrim(Context c, int v) {
+        sp(c).edit().putInt(K_TEXT_SCRIM, Math.max(0, Math.min(60, v))).apply();
+    }
+
     /** 音色参数：基频 / 脆度 / 余韵 */
     public static float toneHz(Context c) { return sp(c).getFloat(K_TONE_HZ, 400f); }
     public static float toneBright(Context c) { return sp(c).getFloat(K_TONE_BRIGHT, 0.60f); }
@@ -76,6 +127,9 @@ public final class MuyuState {
     }
 
     /** 敲击时数字是否加亮 */
+    public static boolean paperOn(Context c) { return sp(c).getBoolean(K_PAPER, true); }
+    public static void setPaper(Context c, boolean v) { sp(c).edit().putBoolean(K_PAPER, v).apply(); }
+
     public static boolean numHotOn(Context c) { return sp(c).getBoolean(K_NUM_HOT, true); }
     public static void setNumHotOn(Context c, boolean v) { sp(c).edit().putBoolean(K_NUM_HOT, v).apply(); }
 

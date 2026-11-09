@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bg">#141210</color>
     <color name="icon_bg">#12100D</color>
+    <color name="surface">#201A14</color>
+    <color name="gold">#C8A050</color>
+    <color name="text">#E8E2D6</color>
+    <color name="text2">#A08C70</color>
+    <color name="text3">#6B5D49</color>
+    <color name="line">#2A231B</color>
 </resources>

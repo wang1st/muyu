@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -78,12 +79,30 @@ public class FishWidget extends AppWidgetProvider {
     /** press: 0 静息 / 1 压形 / 2 回弹 */
     static RemoteViews build(Context c, int widgetId, int press, boolean hot) {
         RemoteViews rv = new RemoteViews(c.getPackageName(), R.layout.widget);
-        int img = press == 1 ? R.drawable.fish_tight_press
-                : (press == 2 ? R.drawable.fish_tight_press2 : R.drawable.fish_tight);
-        rv.setImageViewResource(R.id.fish, img);
-        rv.setImageViewBitmap(R.id.row, rowBitmap(c, true, hot));
+        boolean jade = MuyuState.muyuJade(c);
+        if (jade) {
+            rv.setImageViewBitmap(R.id.fish, JadeRender.render(c, press == 1 ? 1 : (press == 2 ? 2 : 0)));
+        } else {
+            int img = press == 1 ? R.drawable.fish_tight_press
+                    : (press == 2 ? R.drawable.fish_tight_press2 : R.drawable.fish_tight);
+            rv.setImageViewResource(R.id.fish, img);
+        }
+        if (MuyuState.sutraOn(c)) {
+            rv.setViewVisibility(R.id.row, android.view.View.VISIBLE);
+            rv.setImageViewBitmap(R.id.row, rowBitmap(c, true, hot));
+        } else {
+            rv.setViewVisibility(R.id.row, android.view.View.GONE);
+        }
         rv.setOnClickPendingIntent(R.id.card, knockPi(c, widgetId));
         return rv;
+    }
+
+    private static Bitmap PAPER;
+    private static Bitmap paperTexture(Context c) {
+        if (PAPER == null) {
+            PAPER = BitmapFactory.decodeResource(c.getResources(), R.drawable.paper);
+        }
+        return PAPER;
     }
 
     static PendingIntent knockPi(Context c, int id) {
@@ -133,6 +152,15 @@ public class FishWidget extends AppWidgetProvider {
         }
 
         // 两行 × 9 字
+        // 纯色文字 + 可选底衬（不用灰，避免发脏）
+        boolean ink = MuyuState.textInk(c) == 1;
+        int colRead  = ink ? 0xFF1A1611 : 0xFFF2ECE0;
+        int colUnread= colRead;
+        int colCur   = ink ? 0xFF000000 : 0xFFFFFFFF;
+        int colBox   = colRead;
+        int haloCol  = 0x00000000;                      // 光晕由底衬取代
+        int fadedCol = ink ? 0x991A1611 : 0xB3F2ECE0;
+
         String sutra = SutraText.get(c);
         int len = sutra.length();
         int idx = MuyuState.sutraIndex(c, len);
@@ -157,6 +185,41 @@ public class FishWidget extends AppWidgetProvider {
 
         float x0 = (bw - lineW) / 2f;
         float y0 = pad + numFs * 1.15f + fs;
+        // 紙質底紋：深色宣紙小條（僅深壁紙/紙白字模式；淺壁紙墨字模式不畫）
+        if (!ink && MuyuState.paperOn(c)) {
+            android.graphics.Bitmap paper = paperTexture(c);
+            if (paper != null) {
+                float padX = fs * 0.55f, padY = fs * 0.45f;
+                float l = x0 - padX, t = y0 - fs - padY + 10;
+                float r = x0 + lineW + padX, b = y0 + lineH + fs * 0.3f + padY;
+                android.graphics.Path clip = new android.graphics.Path();
+                clip.addRoundRect(new android.graphics.RectF(l, t, r, b), fs * 0.45f, fs * 0.45f,
+                        android.graphics.Path.Direction.CW);
+                cv.save();
+                cv.clipPath(clip);
+                Paint pp = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+                cv.drawBitmap(paper, null, new android.graphics.RectF(l, t, r, b), pp);
+                cv.restore();
+                Paint edge = new Paint(Paint.ANTI_ALIAS_FLAG);
+                edge.setStyle(Paint.Style.STROKE);
+                edge.setStrokeWidth(2f);
+                edge.setColor(0x14F2ECE0);
+                cv.drawRoundRect(new android.graphics.RectF(l, t, r, b), fs * 0.45f, fs * 0.45f, edge);
+            }
+        }
+
+        // 底衬：两行字背后的圆角纸底
+        int scrim = MuyuState.textScrim(c);
+        if (scrim > 0) {
+            int a = (int) (scrim / 100f * 255);
+            Paint sc = new Paint(Paint.ANTI_ALIAS_FLAG);
+            sc.setColor(ink ? (a << 24 | 0x00FFFFFF) : (a << 24));
+            float padX = fs * 0.55f, padY = fs * 0.45f;
+            cv.drawRoundRect(x0 - padX, y0 - fs - padY + 10,
+                    x0 + lineW + padX, y0 + lineH + fs * 0.3f + padY,
+                    fs * 0.45f, fs * 0.45f, sc);
+        }
+
 
         for (int i = 0; i < 18; i++) {
             int ci = batchStart + i;
@@ -169,22 +232,19 @@ public class FishWidget extends AppWidgetProvider {
             Paint t = new Paint(cp);
             int mode = MuyuState.sutraContrast(c);
             int readCol, unreadCol;
-            if (mode == 0) { readCol = 0xFFF2ECE0; unreadCol = 0xFFF2ECE0; }
-            else if (mode == 1) { readCol = 0xFFF2ECE0; unreadCol = 0xB3F2ECE0; }
-            else { readCol = 0xB3F2ECE0; unreadCol = 0xFFF2ECE0; }
-            t.setColor(cur ? 0xFFFFFFFF : (i < pos ? readCol : unreadCol));
-            Paint halo = new Paint(t);
-            halo.setStyle(Paint.Style.STROKE);
-            halo.setStrokeWidth(3.2f);
-            halo.setColor(0x44000000);
-            cv.drawText(ch, x, y, halo);
+            int base = colRead;
+            int faded = fadedCol;
+            if (mode == 0) { readCol = base; unreadCol = base; }
+            else if (mode == 1) { readCol = base; unreadCol = faded; }
+            else { readCol = faded; unreadCol = base; }
+            t.setColor(cur ? colCur : (i < pos ? readCol : unreadCol));
             cv.drawText(ch, x, y, t);
 
             if (cur) {
                 Paint box = new Paint();
                 box.setStyle(Paint.Style.STROKE);
                 box.setStrokeWidth(3f);
-                box.setColor(0xFFE9E4DA);
+                box.setColor(colBox);
                 cv.drawRect(x - fs * 0.12f, y - fs * 0.96f,
                         x + charW + fs * 0.12f, y + fs * 0.22f, box);
             }
@@ -195,7 +255,7 @@ public class FishWidget extends AppWidgetProvider {
         Paint np = new Paint(Paint.ANTI_ALIAS_FLAG);
         np.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         np.setTextSize(numFs);
-        np.setColor(0xFFFFFFFF);
+        np.setColor(colRead);
         np.setAlpha(hot && MuyuState.numHotOn(c) ? 0xA6 : 0x26);   // 敲击 60% / 闲 15%
         float nw = np.measureText(numStr);
         if (npPos == 1) {

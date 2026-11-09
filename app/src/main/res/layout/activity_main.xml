@@ -1,294 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#120C08">
+    android:background="@color/bg"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="木魚"
-            android:textColor="#B89E78"
-            android:textSize="22sp"
+            android:textColor="@color/gold"
+            android:textSize="20sp"
             android:fontFamily="serif" />
 
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="0"
-            android:textColor="#E8C878"
-            android:textSize="54sp"
-            android:textStyle="bold"
-            android:fontFamily="serif" />
-
-        <TextView
-            android:id="@+id/total_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="今日功德"
-            android:textColor="#6B5A44"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/rounds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="第 1 輪 · 已完成 0 輪"
-            android:textColor="#B89E78"
-            android:textSize="14sp"
-            android:fontFamily="serif" />
-
-        <!-- 设置 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_seg_track"
+            android:padding="3dp"
+            android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/sw_sound"
-                android:buttonTint="#C8A050"
+            <Button
+                android:id="@+id/tab_tap"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:checked="true"
-                android:text="敲擊音"
-                android:textColor="#C9B294" />
-
-            <CheckBox
-                android:id="@+id/sw_sutra"
+                android:layout_margin="2dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_seg_selected"
+                android:padding="0dp"
+                android:text="敲擊"
+                android:textColor="#141210"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/tab_sutra"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:checked="true"
+                android:layout_margin="2dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_seg_idle"
+                android:padding="0dp"
                 android:text="經文"
-                android:buttonTint="#C8A050"
-                android:textColor="#C9B294" />
-
-            <CheckBox
-                android:id="@+id/sw_vib"
-                android:buttonTint="#C8A050"
+                android:textColor="@color/gold"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/tab_look"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:checked="true"
-                android:text="震動"
-                android:textColor="#C9B294" />
+                android:layout_margin="2dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_seg_idle"
+                android:padding="0dp"
+                android:text="外觀"
+                android:textColor="@color/gold"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/tab_sound"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_seg_idle"
+                android:padding="0dp"
+                android:text="音色"
+                android:textColor="@color/gold"
+                android:textSize="13sp" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="數字位置"
-            android:textColor="#B89E78"
-            android:textSize="13sp" />
-
-        <RadioGroup
-            android:id="@+id/num_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/num_off"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="不顯示"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-
-            <RadioButton
-                android:id="@+id/num_under"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="木魚下"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-
-            <RadioButton
-                android:id="@+id/num_corner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="經文右下"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-        </RadioGroup>
-
-        <CheckBox
-            android:id="@+id/sw_num_hot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:checked="true"
-            android:text="敲擊時數字加亮"
-            android:buttonTint="#C8A050"
-            android:textColor="#C9B294" />
-
-        <Button
-            android:id="@+id/btn_dedicate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:backgroundTint="#241A12"
-            android:text="回向"
-            android:textColor="#C8A050" />
-
-        <!-- 音色 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="音色"
-            android:textColor="#B89E78"
-            android:textSize="16sp"
-            android:fontFamily="serif" />
 
         <LinearLayout
+            android:id="@+id/tap_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/preset_small"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:backgroundTint="#241A12"
-                android:padding="0dp"
-                android:text="小木魚"
-                android:textColor="#C8A050"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/preset_big"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:backgroundTint="#241A12"
-                android:padding="0dp"
-                android:text="大木魚"
-                android:textColor="#C8A050"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/preset_temple"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:backgroundTint="#241A12"
-                android:padding="0dp"
-                android:text="寺廟共鳴"
-                android:textColor="#C8A050"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/preset_crisp"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:backgroundTint="#241A12"
-                android:padding="0dp"
-                android:text="清脆"
-                android:textColor="#C8A050"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tonepitch_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="基頻  430 Hz"
-            android:textColor="#8A7355"
-            android:textSize="12sp" />
-
-        <SeekBar
-            android:id="@+id/seek_pitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progressTint="#C8A050"
-            android:thumbTint="#C8A050" />
-
-        <TextView
-            android:id="@+id/tonebright_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="脆度  55%"
-            android:textColor="#8A7355"
-            android:textSize="12sp" />
-
-        <SeekBar
-            android:id="@+id/seek_bright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="55"
-            android:progressTint="#C8A050"
-            android:thumbTint="#C8A050" />
-
-        <TextView
-            android:id="@+id/tonedecay_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="餘韻  100%"
-            android:textColor="#8A7355"
-            android:textSize="12sp" />
-
-        <SeekBar
-            android:id="@+id/seek_decay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="33"
-            android:progressTint="#C8A050"
-            android:thumbTint="#C8A050" />
-
-        <Button
-            android:id="@+id/btn_tone_preview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:backgroundTint="#241A12"
-            android:text="試聽"
-            android:textColor="#C8A050" />
-
-        <!-- 经文设置 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:text="經文"
-            android:textColor="#B89E78"
-            android:textSize="16sp"
-            android:fontFamily="serif" />
-
-        <RadioGroup
-            android:id="@+id/sutra_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="0"
+                android:textColor="@color/text"
+                android:textSize="56sp"
+                android:fontFamily="sans-serif-light"
+                android:fontFeatureSettings="tnum" />
+
+            <TextView
+                android:id="@+id/total_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日功德"
+                android:textColor="@color/text3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/rounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="累计 0 · 第 1 輪 · 本輪 0/108"
+                android:textColor="@color/text2"
+                android:textSize="13sp"
+                android:fontFeatureSettings="tnum" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/sw_sound"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="敲擊音"
+                    android:buttonTint="@color/gold"
+                    android:textColor="@color/text" />
+
+                <CheckBox
+                    android:id="@+id/sw_vib"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="震動"
+                    android:buttonTint="@color/gold"
+                    android:textColor="@color/text" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_dedicate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_btn_primary_sel"
+                android:text="回向"
+                android:textColor="#141210"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="修習記錄"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <ListView
+                android:id="@+id/hist_list"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="8dp"
+                android:divider="@color/line"
+                android:dividerHeight="1dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/hist_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="敲擊滿 108 次或點「回向」後，記錄在此"
+                android:textColor="@color/text3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="關於"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="桌面敲木魚，功德記在心。"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="敲擊：小部件點一下即敲，木聲+震動"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="每滿 108 次響一聲磬，計一輪"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="今日功德零點歸零，累計永久保留"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="經文：三部可選，方框逐字讀"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="回向：清空今日，記入修習記錄"
+                android:textColor="@color/text2"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="提示：若無反應，請允許「自啟動」"
+                android:textColor="@color/text3"
+                android:textSize="12sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/line" />
+            <LinearLayout
+                android:id="@+id/link_weibo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="微博　@王药师"
+                    android:textColor="@color/gold"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="@color/text3"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+            <LinearLayout
+                android:id="@+id/link_twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="推特　@qq831261"
+                    android:textColor="@color/gold"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="@color/text3"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:textColor="@color/text3"
+                android:textSize="11sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sutra_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="經文"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/sutra_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/sutra_jj"
@@ -296,42 +334,51 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="金剛經 · 鳩摩羅什譯"
-                android:textColor="#C9B294"
-                android:textSize="14sp"
-                android:buttonTint="#C8A050" />
-
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
             <RadioButton
                 android:id="@+id/sutra_jg_xz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="金剛經 · 玄奘譯（能斷）"
-                android:textColor="#C9B294"
-                android:textSize="14sp"
-                android:buttonTint="#C8A050" />
-
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
             <RadioButton
                 android:id="@+id/sutra_xj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="心經 · 玄奘譯"
-                android:textColor="#C9B294"
-                android:textSize="14sp"
-                android:buttonTint="#C8A050" />
-        </RadioGroup>
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="經文對比"
-            android:textColor="#B89E78"
-            android:textSize="13sp" />
+            <CheckBox
+                android:id="@+id/sw_sutra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="桌面顯示經文"
+                android:buttonTint="@color/gold"
+                android:textColor="@color/text" />
 
-        <RadioGroup
-            android:id="@+id/contrast_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="經文對比"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/contrast_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/ct_same"
@@ -340,115 +387,504 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:text="同色"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
             <RadioButton
                 android:id="@+id/ct_read"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="已讀亮"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
             <RadioButton
                 android:id="@+id/ct_unread"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="未讀亮"
-                android:textColor="#C9B294"
-                android:buttonTint="#C8A050" />
-        </RadioGroup>
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            </RadioGroup>
 
-        <Button
-            android:id="@+id/btn_reset_sutra"
+            <Button
+                android:id="@+id/btn_reset_sutra"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_btn_outline_sel"
+                android:text="經文歸零（回到第一字）"
+                android:textColor="@color/gold"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/look_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#241A12"
-            android:text="經文歸零（回到第一字）"
-            android:textColor="#C8A050" />
+            android:visibility="gone"
+            android:orientation="vertical">
 
-        <!-- 功德簿 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="修習記錄"
-            android:textColor="#B89E78"
-            android:textSize="16sp"
-            android:fontFamily="serif" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="預覽"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/history"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/preview_widget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="false"
+                    android:background="#0D0B09"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="木魚風格"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/style_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/style_flat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="剪影"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            <RadioButton
+                android:id="@+id/style_jade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="和田玉（立體）"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="玉 · 預設"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/jade_white"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="白玉"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_celadon"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="青玉"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_honey"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="蜜蠟"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_ink"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="墨玉"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/jade_ice"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="冰種"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_old"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="老玉"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_porcelain"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="素瓷"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/jade_night"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    
+                    android:text="夜玉"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="數字"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/num_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/num_off"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="不顯示"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            <RadioButton
+                android:id="@+id/num_under"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="木魚下"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            <RadioButton
+                android:id="@+id/num_corner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="經文右下"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/sw_num_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="敲擊時數字加亮"
+                android:buttonTint="@color/gold"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="字色"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/ink_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/ink_light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="紙白（深壁紙）"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            <RadioButton
+                android:id="@+id/ink_dark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="墨（淺壁紙）"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/sw_paper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="紙質底紋"
+                android:buttonTint="@color/gold"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:id="@+id/scrim_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="文字底襯　0"
+                android:textColor="@color/text2"
+                android:textSize="12sp" />
+
+            <SeekBar
+                android:id="@+id/seek_scrim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="60"
+                android:progress="0"
+                android:progressTint="@color/gold"
+                android:thumbTint="@color/gold" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sound_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:lineSpacingExtra="6dp"
-            android:text="暫無回向記錄"
-            android:textColor="#7A6852"
-            android:textSize="13sp" />
+            android:visibility="gone"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="關於"
-            android:textColor="#B89E78"
-            android:textSize="16sp"
-            android:fontFamily="serif" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="音色預設"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:padding="12dp"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:lineSpacingExtra="5dp"
-            android:text="桌面敲木魚，功德記在心。\n\n· 敲擊：桌面小部件點一下即敲，木聲 + 震動，今日功德 +1\n· 每滿 108 次響一聲磬，計一輪（跨天連續累計）\n· 今日功德跨零點自動歸零，累計與輪次永久保留\n· 經文：可選金剛經 / 心經，方框逐字前進，讀滿循環\n· 回向：清空今日數字並記入修習記錄，不動經文位置\n\n提示：若桌面點擊無反應，請在系統設置中允許本應用「自啟動」（MIUI 的後台凍結會攔截點擊）"
-            android:textColor="#7A6852"
-            android:textSize="12sp" />
+                <Button
+                    android:id="@+id/preset_small"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    android:padding="0dp"
+                    android:text="小木魚"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/preset_big"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    android:padding="0dp"
+                    android:text="大木魚"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/preset_temple"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    android:padding="0dp"
+                    android:text="寺廟共鳴"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/preset_crisp"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:background="@drawable/bg_chip_sel"
+                    android:padding="0dp"
+                    android:text="清脆"
+                    android:textColor="@color/gold"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tonepitch_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="基頻　33"
+                android:textColor="@color/text2"
+                android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="聯繫"
-            android:textColor="#B89E78"
-            android:textSize="16sp"
-            android:fontFamily="serif" />
+            <SeekBar
+                android:id="@+id/seek_pitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="33"
+                android:progressTint="@color/gold"
+                android:thumbTint="@color/gold" />
 
-        <TextView
-            android:id="@+id/link_weibo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="微博　@王药师"
-            android:textColor="#C8A050"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tonebright_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="脆度　55"
+                android:textColor="@color/text2"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/link_twitter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="推特　@qq831261"
-            android:textColor="#C8A050"
-            android:textSize="14sp" />
+            <SeekBar
+                android:id="@+id/seek_bright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="55"
+                android:progressTint="@color/gold"
+                android:thumbTint="@color/gold" />
 
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:textColor="#4A3C2E"
-            android:textSize="11sp" />
+            <TextView
+                android:id="@+id/tonedecay_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="餘韻　33"
+                android:textColor="@color/text2"
+                android:textSize="12sp" />
+
+            <SeekBar
+                android:id="@+id/seek_decay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="33"
+                android:progressTint="@color/gold"
+                android:thumbTint="@color/gold" />
+
+
+            <Button
+                android:id="@+id/btn_tone_preview"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="20dp"
+                android:minHeight="0dp"
+                android:background="@drawable/bg_btn_outline_sel"
+                android:text="試聽"
+                android:textColor="@color/gold"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
