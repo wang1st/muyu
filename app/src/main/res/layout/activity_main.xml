@@ -149,6 +149,130 @@
             android:text="回向"
             android:textColor="#C8A050" />
 
+        <!-- 音色 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="音色"
+            android:textColor="#B89E78"
+            android:textSize="16sp"
+            android:fontFamily="serif" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/preset_small"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="#241A12"
+                android:padding="0dp"
+                android:text="小木魚"
+                android:textColor="#C8A050"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/preset_big"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="#241A12"
+                android:padding="0dp"
+                android:text="大木魚"
+                android:textColor="#C8A050"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/preset_temple"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="#241A12"
+                android:padding="0dp"
+                android:text="寺廟共鳴"
+                android:textColor="#C8A050"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/preset_crisp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:backgroundTint="#241A12"
+                android:padding="0dp"
+                android:text="清脆"
+                android:textColor="#C8A050"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tonepitch_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="基頻  430 Hz"
+            android:textColor="#8A7355"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/seek_pitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progressTint="#C8A050"
+            android:thumbTint="#C8A050" />
+
+        <TextView
+            android:id="@+id/tonebright_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="脆度  55%"
+            android:textColor="#8A7355"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/seek_bright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="55"
+            android:progressTint="#C8A050"
+            android:thumbTint="#C8A050" />
+
+        <TextView
+            android:id="@+id/tonedecay_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="餘韻  100%"
+            android:textColor="#8A7355"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/seek_decay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="33"
+            android:progressTint="#C8A050"
+            android:thumbTint="#C8A050" />
+
+        <Button
+            android:id="@+id/btn_tone_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:backgroundTint="#241A12"
+            android:text="試聽"
+            android:textColor="#C8A050" />
+
         <!-- 经文设置 -->
         <TextView
             android:layout_width="wrap_content"
@@ -163,26 +287,35 @@
             android:id="@+id/sutra_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="6dp"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/sutra_jj"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:checked="true"
-                android:text="金剛經"
+                android:text="金剛經 · 鳩摩羅什譯"
                 android:textColor="#C9B294"
+                android:textSize="14sp"
+                android:buttonTint="#C8A050" />
+
+            <RadioButton
+                android:id="@+id/sutra_jg_xz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="金剛經 · 玄奘譯（能斷）"
+                android:textColor="#C9B294"
+                android:textSize="14sp"
                 android:buttonTint="#C8A050" />
 
             <RadioButton
                 android:id="@+id/sutra_xj"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="心經"
+                android:text="心經 · 玄奘譯"
                 android:textColor="#C9B294"
+                android:textSize="14sp"
                 android:buttonTint="#C8A050" />
         </RadioGroup>
 

@@ -27,8 +27,12 @@ public final class MuyuState {
     private static final String K_SUTRA_IDX = "sutraIdx";
     private static final String K_SUTRA_ON = "sutraOn";
     private static final String K_SUTRA_SEL = "sutraSel";
+    private static final String K_SUTRA_SEL_V2 = "sutraSelV2";
     private static final String K_NUM_POS = "numPos";
     private static final String K_NUM_HOT = "numHot";
+    private static final String K_TONE_HZ = "toneHz";
+    private static final String K_TONE_BRIGHT = "toneBright";
+    private static final String K_TONE_DECAY = "toneDecay";
     private static final String K_SUTRA_CONTRAST = "sutraContrast";
 
     private MuyuState() {}
@@ -62,6 +66,15 @@ public final class MuyuState {
     public static boolean sutraOn(Context c) { return sp(c).getBoolean(K_SUTRA_ON, true); }
     public static void setSutraOn(Context c, boolean v) { sp(c).edit().putBoolean(K_SUTRA_ON, v).apply(); }
 
+    /** 音色参数：基频 / 脆度 / 余韵 */
+    public static float toneHz(Context c) { return sp(c).getFloat(K_TONE_HZ, 400f); }
+    public static float toneBright(Context c) { return sp(c).getFloat(K_TONE_BRIGHT, 0.60f); }
+    public static float toneDecay(Context c) { return sp(c).getFloat(K_TONE_DECAY, 1.2f); }
+    public static void setTone(Context c, float hz, float bright, float decay) {
+        sp(c).edit().putFloat(K_TONE_HZ, hz).putFloat(K_TONE_BRIGHT, bright)
+                .putFloat(K_TONE_DECAY, decay).apply();
+    }
+
     /** 敲击时数字是否加亮 */
     public static boolean numHotOn(Context c) { return sp(c).getBoolean(K_NUM_HOT, true); }
     public static void setNumHotOn(Context c, boolean v) { sp(c).edit().putBoolean(K_NUM_HOT, v).apply(); }
@@ -74,9 +87,20 @@ public final class MuyuState {
     public static int numPos(Context c) { return sp(c).getInt(K_NUM_POS, 1); }
     public static void setNumPos(Context c, int v) { sp(c).edit().putInt(K_NUM_POS, v).apply(); }
 
-    /** 0=金剛經 1=心經 */
-    public static int sutraSel(Context c) { return sp(c).getInt(K_SUTRA_SEL, 0); }
-    public static void setSutraSel(Context c, int v) { sp(c).edit().putInt(K_SUTRA_SEL, v).apply(); }
+    /** 0=金剛經(鳩摩羅什) 1=金剛經(玄奘) 2=心經 */
+    public static int sutraSel(Context c) {
+        SharedPreferences p = sp(c);
+        if (!p.getBoolean(K_SUTRA_SEL_V2, false)) {
+            int old = p.getInt(K_SUTRA_SEL, 0);
+            int v = (old == 1) ? 2 : 0;   // 旧版 1 表示心經
+            p.edit().putInt(K_SUTRA_SEL, v).putBoolean(K_SUTRA_SEL_V2, true).apply();
+            return v;
+        }
+        return p.getInt(K_SUTRA_SEL, 0);
+    }
+    public static void setSutraSel(Context c, int v) {
+        sp(c).edit().putInt(K_SUTRA_SEL, v).putBoolean(K_SUTRA_SEL_V2, true).apply();
+    }
 
     /** 经文归零（App 内手动） */
     public static void resetSutra(Context c) { sp(c).edit().putInt(K_SUTRA_IDX, 0).apply(); }

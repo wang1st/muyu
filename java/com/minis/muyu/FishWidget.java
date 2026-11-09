@@ -30,6 +30,7 @@ public class FishWidget extends AppWidgetProvider {
     private static SoundPool SP;
     private static final int[] KNOCK_IDS = new int[3];
     private static int BOWL_ID;
+    private static String TONE_SIG = "";
     private static long LAST_KNOCK_AT = 0L;
     private static Typeface SERIF;
 
@@ -247,15 +248,22 @@ public class FishWidget extends AppWidgetProvider {
     /* ---------------- 声音 / 振动 ---------------- */
 
     static void ensureSounds(Context c) {
-        if (SP != null) return;
+        float hz = MuyuState.toneHz(c), br = MuyuState.toneBright(c), dc = MuyuState.toneDecay(c);
+        String sig = hz + "/" + br + "/" + dc;
+        if (SP != null && sig.equals(TONE_SIG)) return;
+        if (SP != null) { SP.release(); SP = null; }
+        TONE_SIG = sig;
         AudioAttributes attrs = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build();
         SP = new SoundPool.Builder().setMaxStreams(6).setAudioAttributes(attrs).build();
-        KNOCK_IDS[0] = SP.load(c, R.raw.knock1, 1);
-        KNOCK_IDS[1] = SP.load(c, R.raw.knock2, 1);
-        KNOCK_IDS[2] = SP.load(c, R.raw.knock3, 1);
+        // 三种微差（基频 ±4%）避免连击听起来像同一个采样
+        for (int i = 0; i < 3; i++) {
+            float jitter = 1f + (i - 1) * 0.04f;
+            String path = ToneSynth.writeWav(c, "k" + i + ".wav", hz * jitter, br, dc, 11 + i * 7L);
+            KNOCK_IDS[i] = SP.load(path, 1);
+        }
         BOWL_ID = SP.load(c, R.raw.bowl, 1);
     }
 

@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 /** 木魚：功德簿与设置（敲击在小部件上完成） */
@@ -30,6 +31,62 @@ public class MainActivity extends Activity {
         history = findViewById(R.id.history);
         swSound = findViewById(R.id.sw_sound);
         swVib = findViewById(R.id.sw_vib);
+        // 音色三滑杆
+        final SeekBar sp = findViewById(R.id.seek_pitch);
+        final SeekBar sb = findViewById(R.id.seek_bright);
+        final SeekBar sd = findViewById(R.id.seek_decay);
+        final TextView lp = findViewById(R.id.tonepitch_label);
+        final TextView lb = findViewById(R.id.tonebright_label);
+        final TextView ld = findViewById(R.id.tonedecay_label);
+        sp.setProgress(Math.round((MuyuState.toneHz(this) - 300f) / 200f * 100f));
+        sb.setProgress(Math.round(MuyuState.toneBright(this) * 100f));
+        sd.setProgress(Math.round((MuyuState.toneDecay(this) - 0.5f) / 1.1f * 100f));
+        SeekBar.OnSeekBarChangeListener tl = new SeekBar.OnSeekBarChangeListener() {
+            void apply() {
+                float hz = 300f + sp.getProgress() / 100f * 200f;
+                float br = sb.getProgress() / 100f;
+                float dc = 0.5f + sd.getProgress() / 100f * 1.1f;
+                lp.setText("基頻  " + Math.round(hz) + " Hz");
+                lb.setText("脆度  " + sb.getProgress() + "%");
+                ld.setText("餘韻  " + Math.round(dc * 100) + "%");
+                MuyuState.setTone(MainActivity.this, hz, br, dc);
+            }
+            @Override public void onProgressChanged(SeekBar s, int p, boolean u) { apply(); }
+            @Override public void onStartTrackingTouch(SeekBar s) {}
+            @Override public void onStopTrackingTouch(SeekBar s) { apply(); }
+        };
+        sp.setOnSeekBarChangeListener(tl);
+        sb.setOnSeekBarChangeListener(tl);
+        sd.setOnSeekBarChangeListener(tl);
+        tl.onProgressChanged(sp, sp.getProgress(), false);
+        // 预设：一键把三个滑杆推到对应值
+        View.OnClickListener preset = new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                int id = v.getId();
+                float hz, br, dc;
+                if (id == R.id.preset_small) { hz = 465f; br = 0.72f; dc = 0.85f; }
+                else if (id == R.id.preset_big) { hz = 340f; br = 0.42f; dc = 1.05f; }
+                else if (id == R.id.preset_temple) { hz = 325f; br = 0.32f; dc = 1.55f; }
+                else { hz = 485f; br = 0.85f; dc = 0.80f; }
+                sp.setProgress(Math.round((hz - 300f) / 200f * 100f));
+                sb.setProgress(Math.round(br * 100f));
+                sd.setProgress(Math.round((dc - 0.5f) / 1.1f * 100f));
+                FishWidget.ensureSounds(MainActivity.this);
+                FishWidget.playKnock(MainActivity.this);
+            }
+        };
+        findViewById(R.id.preset_small).setOnClickListener(preset);
+        findViewById(R.id.preset_big).setOnClickListener(preset);
+        findViewById(R.id.preset_temple).setOnClickListener(preset);
+        findViewById(R.id.preset_crisp).setOnClickListener(preset);
+
+        findViewById(R.id.btn_tone_preview).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                FishWidget.ensureSounds(MainActivity.this);
+                FishWidget.playKnock(MainActivity.this);
+            }
+        });
+
         RadioGroup numGroup = findViewById(R.id.num_group);
         int np = MuyuState.numPos(this);
         ((RadioButton) findViewById(np == 0 ? R.id.num_off : (np == 2 ? R.id.num_corner : R.id.num_under))).setChecked(true);
@@ -64,10 +121,12 @@ public class MainActivity extends Activity {
         });
 
         RadioGroup group = findViewById(R.id.sutra_group);
-        ((RadioButton) findViewById(MuyuState.sutraSel(this) == 1 ? R.id.sutra_xj : R.id.sutra_jj)).setChecked(true);
+        int selNow = MuyuState.sutraSel(this);
+        ((RadioButton) findViewById(selNow == 2 ? R.id.sutra_xj : (selNow == 1 ? R.id.sutra_jg_xz : R.id.sutra_jj))).setChecked(true);
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
-                MuyuState.setSutraSel(MainActivity.this, checkedId == R.id.sutra_xj ? 1 : 0);
+                int v = checkedId == R.id.sutra_xj ? 2 : (checkedId == R.id.sutra_jg_xz ? 1 : 0);
+                MuyuState.setSutraSel(MainActivity.this, v);
                 FishWidget.renderAll(MainActivity.this, 0, false);
             }
         });

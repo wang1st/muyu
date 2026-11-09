@@ -13,7 +13,11 @@ public final class SutraText {
 
     public static synchronized String get(Context c) {
         int sel = MuyuState.sutraSel(c);
-        if (sel == 1) {
+        if (sel == 1) {   // 金剛經 · 玄奘譯
+            if (xuan == null) xuan = load(c, "jingang_xuanzang.txt", "如是我聞一時薄伽梵");
+            return xuan;
+        }
+        if (sel == 2) {   // 心經
             if (xin == null) xin = load(c, "xinjing.txt", "觀自在菩薩行深般若波羅蜜多時");
             return xin;
         }
@@ -34,6 +38,7 @@ public final class SutraText {
     }
 
     private static String xin;
+    private static String xuan;
 
     private static String load(Context c, String name, String fallback) {
         StringBuilder sb = new StringBuilder();

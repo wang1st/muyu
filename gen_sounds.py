@@ -12,34 +12,34 @@ def knock(f0, seed, decay_scale=1.0):
     t = np.arange(int(SR * 0.32)) / SR
 
     modes = [
-        (f0 * 1.00, 1.00, 26.0),
-        (f0 * 2.42, 0.42, 38.0),
-        (f0 * 3.10, 0.18, 55.0),
+        (f0 * 1.00, 1.00, 30.0),    # 主腔：再短一点
+        (f0 * 2.55, 0.55, 46.0),    # 木块二次模：抬高、加强
+        (f0 * 4.10, 0.30, 62.0),    # 中高"脆"分音：本质变化
     ]
     body = np.zeros_like(t)
     for f, amp, dec in modes:
         body += amp * np.sin(2 * np.pi * f * t + rng.uniform(0, 6.28)) * np.exp(-t * dec * decay_scale)
 
-    thump = 0.55 * np.sin(2 * np.pi * f0 * 0.44 * t) * np.exp(-t * 14 * decay_scale)
+    thump = 0.28 * np.sin(2 * np.pi * f0 * 0.50 * t) * np.exp(-t * 22 * decay_scale)  # 低频减半、衰减更快
 
     n = int(SR * 0.006)
     click = rng.standard_normal(n)
     click = np.diff(click, prepend=0.0)
-    click = np.convolve(click, np.ones(5) / 5, mode="same")   # 去掉过亮的高频
-    click *= np.exp(-np.arange(n) / (SR * 0.0016))
+    click = np.convolve(click, np.ones(3) / 3, mode="same")   # 保留更多高频，让"嗒"更脆
+    click *= np.exp(-np.arange(n) / (SR * 0.0011))
     trans = np.zeros_like(t)
-    trans[:n] = click * 0.30
+    trans[:n] = click * 0.38
 
     n2 = int(SR * 0.05)
     tex = rng.standard_normal(n2)
     tex = np.convolve(tex, np.ones(12) / 12, mode="same")
     tex *= np.exp(-np.arange(n2) / (SR * 0.012))
     texn = np.zeros_like(t)
-    texn[:n2] = tex * 0.30
+    texn[:n2] = tex * 0.26
 
     sig = body + thump + trans + texn
     attack = np.clip(t / 0.001, 0, 1)
-    sig = np.tanh(sig * 0.9) * attack
+    sig = np.tanh(sig * 0.75) * attack   # 少压一点，保留瞬态亮度
     sig *= np.exp(-t * 9)
     return sig / (np.max(np.abs(sig)) + 1e-6) * 0.92
 
@@ -64,9 +64,9 @@ def save(name, data):
         w.writeframes(pcm.tobytes())
 
 
-save("knock1.wav", knock(360, 11, 1.00))
-save("knock2.wav", knock(392, 22, 0.92))
-save("knock3.wav", knock(332, 33, 1.08))
+save("knock1.wav", knock(430, 11, 1.00))
+save("knock2.wav", knock(465, 22, 0.90))
+save("knock3.wav", knock(405, 33, 1.10))
 save("bowl.wav", bowl())
 print("sounds regenerated")
 
