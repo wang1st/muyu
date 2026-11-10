@@ -21,13 +21,11 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.RemoteViews;
 
-import java.util.Random;
 
 /** 木鱼：剪影 + 今日功德 + 极简经卷行 */
 public class FishWidget extends AppWidgetProvider {
     static final String ACTION_KNOCK = "com.minis.muyu.KNOCK";
 
-    private static final Random RND = new Random();
     private static SoundPool SP;
     private static final int[] KNOCK_IDS = new int[3];
     private static int BOWL_ID;
@@ -325,19 +323,16 @@ public class FishWidget extends AppWidgetProvider {
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build();
         SP = new SoundPool.Builder().setMaxStreams(6).setAudioAttributes(attrs).build();
-        // 三种微差（基频 ±4%）避免连击听起来像同一个采样
-        for (int i = 0; i < 3; i++) {
-            float jitter = 1f + (i - 1) * 0.04f;
-            String path = ToneSynth.writeWav(c, "k" + i + ".wav", hz * jitter, br, dc, 11 + i * 7L);
-            KNOCK_IDS[i] = SP.load(path, 1);
-        }
+        // 固定单一样本：每次敲击声音完全一致（不再做 ±4% 随机微差）
+        String path = ToneSynth.writeWav(c, "k0.wav", hz, br, dc, 11L);
+        KNOCK_IDS[0] = SP.load(path, 1);
         BOWL_ID = SP.load(c, R.raw.bowl, 1);
     }
 
     static void playKnock(Context c) {
         try {
             ensureSounds(c);
-            SP.play(KNOCK_IDS[RND.nextInt(3)], 1f, 1f, 1, 0, 1f);
+            SP.play(KNOCK_IDS[0], 1f, 1f, 1, 0, 1f);
         } catch (Exception ignored) {}
     }
 
