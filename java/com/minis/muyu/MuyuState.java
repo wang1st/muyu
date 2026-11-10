@@ -44,6 +44,7 @@ public final class MuyuState {
     private static final String K_WHITE_TONE = "whiteTone";
     private static final String K_RECITE = "recite";
     private static final String K_VOICE_NAME = "voiceName";
+    private static final String K_SUTRA_IDX_VER = "sutraIdxVer";
     private static final String K_LAST_TAB = "lastTab";
     private static final String K_BAKE_VER = "bakeVer";
     private static final String K_MAT = "material";      // 0 玉 / 1 木
@@ -247,7 +248,17 @@ public final class MuyuState {
     /** 经文进度：独立于每日功德，读完循环 */
     public static int sutraIndex(Context c, int len) {
         if (len <= 0) return 0;
-        int v = sp(c).getInt(K_SUTRA_IDX, 0);
+        SharedPreferences p = sp(c);
+        int v = p.getInt(K_SUTRA_IDX, 0);
+        if (p.getInt(K_SUTRA_IDX_VER, 1) < 2 && v >= 987) {
+            // v1.8 經文按佛恩網底本逐字對齊：舊 5179 字 → 新 5174 字
+            // 舊 987 起刪「是名佛法」4 字；舊 4860「者則」→「即」少 1 字
+            v = v >= 4862 ? v - 5 : v - 4;
+            if (v < 0) v = 0;
+            p.edit().putInt(K_SUTRA_IDX, v).putInt(K_SUTRA_IDX_VER, 2).apply();
+        } else if (p.getInt(K_SUTRA_IDX_VER, 1) < 2) {
+            p.edit().putInt(K_SUTRA_IDX_VER, 2).apply();
+        }
         return ((v % len) + len) % len;
     }
 
