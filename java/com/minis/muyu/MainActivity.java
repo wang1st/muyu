@@ -114,6 +114,19 @@ public class MainActivity extends Activity {
 
         swSound.setChecked(MuyuState.soundOn(this));
         swVib.setChecked(MuyuState.vibOn(this));
+        CheckBox swRecite = findViewById(R.id.sw_recite);
+        swRecite.setChecked(MuyuState.reciteOn(this));
+        swRecite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(CompoundButton v, boolean checked) {
+                MuyuState.setRecite(MainActivity.this, checked);
+                if (checked) {
+                    // 立刻讀當前字，讓用戶確認已生效
+                    String s = SutraText.get(MainActivity.this);
+                    int i = MuyuState.sutraIndex(MainActivity.this, s.length());
+                    TtsSpeaker.speak(MainActivity.this, SutraSpeech.at(s, i));
+                }
+            }
+        });
         swSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(CompoundButton v, boolean checked) {
                 MuyuState.setSound(MainActivity.this, checked);

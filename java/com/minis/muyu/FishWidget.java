@@ -55,6 +55,11 @@ public class FishWidget extends AppWidgetProvider {
 
         int len = SutraText.length(c);
         MuyuState.advanceSutra(c, len);
+        if (MuyuState.reciteOn(c) && MuyuState.sutraOn(c)) {
+            String s = SutraText.get(c);
+            int i = MuyuState.sutraIndex(c, len);
+            TtsSpeaker.speak(c, SutraSpeech.at(s, i));
+        }
 
         renderAll(c, 1, true);                      // 压形 + 数字浮现
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

@@ -143,6 +143,24 @@
                     android:textColor="@color/text" />
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/sw_recite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="誦讀　敲一下讀出當前字"
+                android:buttonTint="@color/gold"
+                android:textColor="@color/text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="30dp"
+                android:text="讀音依《金剛經誦讀筆記》校正：般若 bō rě、祇樹 qí shù、降伏 xiáng fú、願樂 yào…"
+                android:textColor="@color/text3"
+                android:textSize="11sp" />
+
             <Button
                 android:id="@+id/btn_dedicate"
                 android:layout_width="match_parent"

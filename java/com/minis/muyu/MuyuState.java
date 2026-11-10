@@ -42,6 +42,7 @@ public final class MuyuState {
     private static final String K_MUYU_JADE = "muyuJade";
     private static final String K_PREVIEW_MODE = "previewMode";
     private static final String K_WHITE_TONE = "whiteTone";
+    private static final String K_RECITE = "recite";
     private static final String K_LAST_TAB = "lastTab";
     private static final String K_BAKE_VER = "bakeVer";
     private static final String K_MAT = "material";      // 0 玉 / 1 木
@@ -194,6 +195,13 @@ public final class MuyuState {
     public static void setView(Context c, float yaw, float pitch, float zoom) {
         sp(c).edit().putFloat(K_VIEW_YAW, yaw).putFloat(K_VIEW_PITCH, pitch)
                 .putFloat(K_VIEW_ZOOM, zoom).apply();
+    }
+
+    /** 誦讀：每敲一下讀出當前字（依筆記的讀音校正） */
+    public static boolean reciteOn(Context c) { return sp(c).getBoolean(K_RECITE, false); }
+    public static void setRecite(Context c, boolean v) {
+        sp(c).edit().putBoolean(K_RECITE, v).apply();
+        if (!v) TtsSpeaker.stop();
     }
 
     public static boolean paperOn(Context c) { return sp(c).getBoolean(K_PAPER, true); }
