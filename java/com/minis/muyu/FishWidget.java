@@ -79,13 +79,12 @@ public class FishWidget extends AppWidgetProvider {
     /** press: 0 静息 / 1 压形 / 2 回弹 */
     static RemoteViews build(Context c, int widgetId, int press, boolean hot) {
         RemoteViews rv = new RemoteViews(c.getPackageName(), R.layout.widget);
-        boolean jade = MuyuState.muyuJade(c);
-        if (jade) {
+        int mode = MuyuState.previewMode(c);
+        if (mode == MuyuState.PREVIEW_3D) {
             rv.setImageViewBitmap(R.id.fish, JadeRender.render(c, press == 1 ? 1 : (press == 2 ? 2 : 0)));
         } else {
-            int img = press == 1 ? R.drawable.fish_tight_press
-                    : (press == 2 ? R.drawable.fish_tight_press2 : R.drawable.fish_tight);
-            rv.setImageViewResource(R.id.fish, img);
+            rv.setImageViewBitmap(R.id.fish,
+                    FlatRender.render(c, mode, MuyuState.whiteTone(c), press));
         }
         if (MuyuState.sutraOn(c)) {
             rv.setViewVisibility(R.id.row, android.view.View.VISIBLE);

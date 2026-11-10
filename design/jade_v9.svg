@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="和田玉木鱼 V9 和田玉·内壁纵深与末端透空 SVG">
+<title>和田玉木鱼 · V9 内壁纵深·局部透空版</title>
+<desc>保留原有圆润木鱼轮廓和磨砂和田玉材质。中下部为有厚度的雕刻内壁，仅嘴缝最右端小段贯穿透明；纯矢量渐变，无嵌入位图。</desc>
+<defs>
+  <path id="jadeBody" d="M22 354 C21 338 41 324 54 306 C82 270 98 213 138 155 C174 105 236 68 290 72 C365 73 428 111 456 166 C464 180 469 187 457 190 C401 200 284 217 206 243 C170 255 143 269 146 289 C149 312 173 313 193 302 C266 257 356 230 467 209 C485 223 491 265 489 306 C482 379 411 435 305 440 C215 443 143 420 91 396 C70 387 54 401 36 392 C22 387 15 371 22 354 Z"/>
+  <clipPath id="bodyClip"><use xlink:href="#jadeBody"/></clipPath>
+
+  <radialGradient id="matteBase" gradientUnits="userSpaceOnUse" cx="244" cy="211" r="307" gradientTransform="translate(0 37) scale(1 .85)">
+    <stop offset="0" stop-color="#f8f4e9"/><stop offset=".35" stop-color="#ece6d7"/>
+    <stop offset=".69" stop-color="#d9cdb9"/><stop offset="1" stop-color="#ae997f"/>
+  </radialGradient>
+  <radialGradient id="topDome" gradientUnits="userSpaceOnUse" cx="246" cy="142" r="202" gradientTransform="translate(0 18) scale(1 .91)">
+    <stop offset="0" stop-color="#fffdf5" stop-opacity=".98"/>
+    <stop offset=".23" stop-color="#fdf9ef" stop-opacity=".92"/>
+    <stop offset=".53" stop-color="#ece2d0" stop-opacity=".76"/>
+    <stop offset=".80" stop-color="#c2b099" stop-opacity=".42"/>
+    <stop offset="1" stop-color="#baa68e" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="topShoulder" gradientUnits="userSpaceOnUse" cx="350" cy="109" r="155" gradientTransform="translate(0 14) scale(1 .88)">
+    <stop offset="0" stop-color="#fffbef" stop-opacity=".36"/>
+    <stop offset=".52" stop-color="#faf5e8" stop-opacity=".14"/>
+    <stop offset="1" stop-color="#fffdf8" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="topWallRound" gradientUnits="userSpaceOnUse" cx="179" cy="205" r="172" gradientTransform="translate(0 18) scale(1 .91)">
+    <stop offset="0" stop-color="#fffef6" stop-opacity=".38"/>
+    <stop offset=".61" stop-color="#fffef8" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#fffbeb" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="upperLipSolid" x1="277" y1="219" x2="288" y2="262" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#f8f2e5" stop-opacity=".2"/>
+    <stop offset=".43" stop-color="#ddd0bd" stop-opacity=".4"/>
+    <stop offset="1" stop-color="#8e7c63" stop-opacity=".0"/>
+  </linearGradient>
+
+  <radialGradient id="bellyConvex" gradientUnits="userSpaceOnUse" cx="274" cy="298" r="193" gradientTransform="translate(0 35) scale(1 .91)">
+    <stop offset="0" stop-color="#fffdf4" stop-opacity=".98"/>
+    <stop offset=".20" stop-color="#fcf7ea" stop-opacity=".95"/>
+    <stop offset=".46" stop-color="#ede3d2" stop-opacity=".67"/>
+    <stop offset=".74" stop-color="#d0bea4" stop-opacity=".23"/>
+    <stop offset="1" stop-color="#b09b80" stop-opacity=".0"/>
+  </radialGradient>
+  <radialGradient id="bellyChin" gradientUnits="userSpaceOnUse" cx="310" cy="292" r="181" gradientTransform="translate(0 83) scale(1 .72)">
+    <stop offset="0" stop-color="#fffff8" stop-opacity=".57"/>
+    <stop offset=".39" stop-color="#fffcf4" stop-opacity=".28"/>
+    <stop offset="1" stop-color="#f7edda" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="frontSlope" gradientUnits="userSpaceOnUse" cx="246" cy="287" r="183" gradientTransform="translate(0 75) scale(1 .78)">
+    <stop offset="0" stop-color="#fffdf5" stop-opacity=".48"/>
+    <stop offset=".61" stop-color="#fff9e9" stop-opacity=".09"/>
+    <stop offset="1" stop-color="#fff9e9" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="rightCurvature" gradientUnits="userSpaceOnUse" cx="492" cy="330" r="175" gradientTransform="translate(0 20) scale(1 .95)">
+    <stop offset="0" stop-color="#81715e" stop-opacity=".59"/>
+    <stop offset=".43" stop-color="#9c8b70" stop-opacity=".37"/>
+    <stop offset=".76" stop-color="#bdab93" stop-opacity=".09"/>
+    <stop offset="1" stop-color="#ccbba5" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="baseTurn" gradientUnits="userSpaceOnUse" cx="277" cy="472" r="195" gradientTransform="translate(0 175) scale(1 .64)">
+    <stop offset="0" stop-color="#71624b" stop-opacity=".68"/>
+    <stop offset=".34" stop-color="#918066" stop-opacity=".53"/>
+    <stop offset=".70" stop-color="#c8b397" stop-opacity=".17"/>
+    <stop offset="1" stop-color="#dbc9af" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="leftNoseRound" gradientUnits="userSpaceOnUse" cx="14" cy="372" r="124">
+    <stop offset="0" stop-color="#9f8b71" stop-opacity=".32"/>
+    <stop offset=".63" stop-color="#b6a18b" stop-opacity=".14"/>
+    <stop offset="1" stop-color="#b6a18b" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="bottomBounce" gradientUnits="userSpaceOnUse" cx="301" cy="402" r="159" gradientTransform="translate(0 61) scale(1 .85)">
+    <stop offset="0" stop-color="#fff9ed" stop-opacity=".19"/>
+    <stop offset=".66" stop-color="#fff6e7" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#fff6e7" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- Pure-vector organic soft-edged lobes, no visible seam. -->
+  <radialGradient id="upperFaceBlend" gradientUnits="userSpaceOnUse" cx="259" cy="155" r="207" gradientTransform="translate(0 24) scale(1 .91)">
+    <stop offset="0" stop-color="#fffdf4" stop-opacity=".54"/>
+    <stop offset=".44" stop-color="#fffaf0" stop-opacity=".3"/>
+    <stop offset=".78" stop-color="#fff4e5" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#fff4e5" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="lowerFaceBlend" gradientUnits="userSpaceOnUse" cx="274" cy="300" r="214" gradientTransform="translate(0 31) scale(1 .91)">
+    <stop offset="0" stop-color="#fffef7" stop-opacity=".57"/>
+    <stop offset=".42" stop-color="#fffbed" stop-opacity=".26"/>
+    <stop offset=".81" stop-color="#f6e4cc" stop-opacity=".04"/>
+    <stop offset="1" stop-color="#f6e4cc" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="lipRollUpper" x1="277" y1="209" x2="284" y2="248" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#fffdf6" stop-opacity="0"/>
+    <stop offset=".42" stop-color="#fffaf0" stop-opacity=".39"/>
+    <stop offset="1" stop-color="#a79580" stop-opacity=".09"/>
+  </linearGradient>
+  <linearGradient id="lipRollLower" x1="279" y1="248" x2="296" y2="307" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#f8efdf" stop-opacity=".21"/>
+    <stop offset=".41" stop-color="#fffaf2" stop-opacity=".63"/>
+    <stop offset="1" stop-color="#fff8eb" stop-opacity="0"/>
+  </linearGradient>
+
+  <!-- Mouth deep inside the shell and gently rounded in two directions. -->
+  <linearGradient id="slotDeep" x1="288" y1="191" x2="291" y2="297" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#5e5443"/>
+    <stop offset=".27" stop-color="#76644c"/>
+    <stop offset=".54" stop-color="#9d8766"/>
+    <stop offset=".84" stop-color="#c6b297"/>
+    <stop offset="1" stop-color="#e7d8bc"/>
+  </linearGradient>
+  <linearGradient id="slotRoof" x1="290" y1="202" x2="297" y2="287" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#514635" stop-opacity=".7"/>
+    <stop offset=".58" stop-color="#87755d" stop-opacity=".26"/>
+    <stop offset="1" stop-color="#ad987e" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="slotFloor" x1="280" y1="218" x2="305" y2="297" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#f1e4d2" stop-opacity="0"/>
+    <stop offset=".65" stop-color="#efe0c9" stop-opacity=".13"/>
+    <stop offset="1" stop-color="#fff4dd" stop-opacity=".45"/>
+  </linearGradient>
+  <radialGradient id="slotInnerLeft" gradientUnits="userSpaceOnUse" cx="169" cy="273" r="49">
+    <stop offset="0" stop-color="#67543f" stop-opacity=".35"/>
+    <stop offset="1" stop-color="#67543f" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="underLip" x1="274" y1="197" x2="292" y2="249" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#8e7a60" stop-opacity=".32"/>
+    <stop offset="1" stop-color="#a28c72" stop-opacity=".0"/>
+  </linearGradient>
+
+  <radialGradient id="groundSoft">
+    <stop offset="0" stop-color="#46382e" stop-opacity=".22"/>
+    <stop offset=".44" stop-color="#46382e" stop-opacity=".09"/>
+    <stop offset="1" stop-color="#46382e" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="groundCore">
+    <stop offset="0" stop-color="#3e3025" stop-opacity=".47"/>
+    <stop offset=".46" stop-color="#49392c" stop-opacity=".23"/>
+    <stop offset="1" stop-color="#49392c" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- Mouth as a real recessed volume: roof, back wall, floor and rounded left end. -->
+  <path id="mouthVoid" d="M457 190 C401 200 284 217 206 243 C170 255 143 269 146 289 C149 312 173 313 193 302 C266 257 356 230 467 209 L469 196 Z"/>
+  <clipPath id="mouthClip"><use xlink:href="#mouthVoid"/></clipPath>
+  <linearGradient id="v7MouthBase" x1="258" y1="208" x2="303" y2="304" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#55483b"/><stop offset=".22" stop-color="#665443"/>
+    <stop offset=".55" stop-color="#917760"/><stop offset=".84" stop-color="#b09a7c"/>
+    <stop offset="1" stop-color="#d3bd9e"/>
+  </linearGradient>
+  <linearGradient id="v7Roof" x1="285" y1="207" x2="295" y2="262" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#473e33"/><stop offset=".32" stop-color="#57483b"/>
+    <stop offset=".64" stop-color="#67513f"/><stop offset="1" stop-color="#8e7760"/>
+  </linearGradient>
+  <linearGradient id="v7FarWall" x1="191" y1="257" x2="336" y2="260" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#6b5240"/><stop offset=".32" stop-color="#7f674e"/>
+    <stop offset=".72" stop-color="#a0896d"/><stop offset="1" stop-color="#ae9777"/>
+  </linearGradient>
+  <linearGradient id="v7Floor" x1="283" y1="246" x2="302" y2="304" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#8e755e"/><stop offset=".46" stop-color="#b89c79"/>
+    <stop offset=".82" stop-color="#d6bb97"/><stop offset="1" stop-color="#ecd9b6"/>
+  </linearGradient>
+  <radialGradient id="v7LeftCavity" cx="158" cy="286" r="51" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#443629" stop-opacity=".86"/>
+    <stop offset=".42" stop-color="#5b4633" stop-opacity=".53"/>
+    <stop offset="1" stop-color="#6a5541" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="v7UpperChamfer" x1="251" y1="219" x2="260" y2="245" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#fffdf5" stop-opacity=".58"/>
+    <stop offset=".36" stop-color="#e9dccc" stop-opacity=".73"/>
+    <stop offset=".72" stop-color="#a38c73" stop-opacity=".49"/>
+    <stop offset="1" stop-color="#5b493b" stop-opacity=".05"/>
+  </linearGradient>
+  <linearGradient id="v7LowerChamfer" x1="265" y1="261" x2="276" y2="294" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#c5b096" stop-opacity=".58"/>
+    <stop offset=".25" stop-color="#e0cdb4" stop-opacity=".77"/>
+    <stop offset=".52" stop-color="#fff8e8" stop-opacity=".79"/>
+    <stop offset="1" stop-color="#fdf6e7" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="v7InnerEnd" x1="140" y1="272" x2="187" y2="307" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#715943"/><stop offset=".48" stop-color="#513c2a"/><stop offset="1" stop-color="#b39a7b"/>
+  </linearGradient>
+
+  <!-- V8: the lip is carved in thick jade. Only the upper interior wall is painted;
+       the rest of the slot remains genuinely transparent (no simulated background). -->
+  <linearGradient id="v8RoofJade" x1="277" y1="195" x2="300" y2="285" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#96836b"/>
+    <stop offset=".30" stop-color="#776552"/>
+    <stop offset=".66" stop-color="#877159"/>
+    <stop offset="1" stop-color="#bcaa90"/>
+  </linearGradient>
+  <linearGradient id="v8RoofDepth" x1="195" y1="243" x2="215" y2="280" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#574838" stop-opacity=".53"/>
+    <stop offset=".56" stop-color="#62513f" stop-opacity=".22"/>
+    <stop offset="1" stop-color="#c6b39a" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="v8WallSweep" x1="170" y1="283" x2="470" y2="194" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#6d5745" stop-opacity=".93"/>
+    <stop offset=".22" stop-color="#77614b" stop-opacity=".78"/>
+    <stop offset=".68" stop-color="#968168" stop-opacity=".72"/>
+    <stop offset="1" stop-color="#c2b099" stop-opacity=".69"/>
+  </linearGradient>
+
+  <!-- V9 physical cavity: matte sculpted inner wall; a SMALL terminal gap remains unpainted and truly transparent. -->
+  <linearGradient id="v9CavityWall" x1="262" y1="213" x2="299" y2="307" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#5c4c3a"/>
+    <stop offset=".25" stop-color="#7b6550"/>
+    <stop offset=".55" stop-color="#a28b6f"/>
+    <stop offset=".83" stop-color="#c1a989"/>
+    <stop offset="1" stop-color="#ead8b9"/>
+  </linearGradient>
+  <linearGradient id="v9RoofOcclusion" x1="251" y1="225" x2="271" y2="289" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#463b30" stop-opacity=".83"/>
+    <stop offset=".34" stop-color="#594736" stop-opacity=".58"/>
+    <stop offset=".72" stop-color="#6b5541" stop-opacity=".24"/>
+    <stop offset="1" stop-color="#967b5e" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="v9WallLateral" x1="155" y1="280" x2="452" y2="197" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#705840" stop-opacity=".42"/>
+    <stop offset=".30" stop-color="#8f7559" stop-opacity=".34"/>
+    <stop offset=".72" stop-color="#d3b99a" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#d7c3a7" stop-opacity=".0"/>
+  </linearGradient>
+  <linearGradient id="v9FloorLight" x1="264" y1="246" x2="285" y2="304" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#ead7b7" stop-opacity="0"/>
+    <stop offset=".55" stop-color="#ddc7a6" stop-opacity=".20"/>
+    <stop offset=".82" stop-color="#fff0d4" stop-opacity=".46"/>
+    <stop offset="1" stop-color="#fff4dc" stop-opacity=".72"/>
+  </linearGradient>
+  <radialGradient id="v9BlindEnd" gradientUnits="userSpaceOnUse" cx="155" cy="288" r="44">
+    <stop offset="0" stop-color="#3f3026" stop-opacity=".53"/>
+    <stop offset=".48" stop-color="#604a36" stop-opacity=".22"/>
+    <stop offset="1" stop-color="#6b5541" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="v9RightRecission" x1="409" y1="211" x2="457" y2="198" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#897359" stop-opacity=".12"/>
+    <stop offset=".55" stop-color="#6a5542" stop-opacity=".51"/>
+    <stop offset="1" stop-color="#514438" stop-opacity=".84"/>
+  </linearGradient>
+</defs>
+
+<!-- Short grounded shadow on a transparent canvas -->
+<ellipse cx="280" cy="445" rx="167" ry="24" fill="url(#groundSoft)"/>
+<ellipse cx="281" cy="445" rx="103" ry="10.2" fill="url(#groundCore)"/>
+
+<!-- V9 carved mouth: visible curved inner wall, NOT a transparent lower slit.
+     The cavity is mostly solid jade seen in perspective. Only the rightmost
+     opening (within the long notch, below the upper lip) contains actual alpha 0.
+     All paths below are kept inside the existing slot clip. -->
+<g clip-path="url(#mouthClip)">
+  <!-- Main concave inner wall: follows upper rim, rounds left blind end,
+       rolls down into the inner floor. At the right the wall turns back
+       inward, leaving a small true through-gap near the outside tip. -->
+  <path id="visibleInnerWall"
+        d="M457 190
+           C401 200 284 217 206 243
+           C170 255 143 269 146 289
+           C149 312 173 313 193 302
+           C266 257 350 231 435 214
+           C442 212 445 208 446 204
+           C449 199 453 194 457 190 Z"
+        fill="url(#v9CavityWall)"/>
+
+  <!-- Under the overhanging TOP lip: large soft shadow, limited to wall.
+       The lower/near inner wall stays opaque, as in the wooden reference. -->
+  <path d="M457 190 C401 200 284 217 206 243
+           C170 255 143 269 146 289
+           C146 296 152 300 160 299
+           C169 298 182 291 202 279
+           C274 238 375 216 449 197
+           C452 194 455 191 457 190 Z"
+        fill="url(#v9RoofOcclusion)"/>
+
+  <!-- Soft bottom-facing inner surface: translucent LIGHT over solid jade,
+       not an alpha hole. The lower lip itself is painted later by the shell. -->
+  <path d="M155 296 C161 308 174 306 193 302
+           C266 257 350 231 435 214
+           C425 213 405 219 381 227
+           C300 251 232 281 188 302
+           C173 307 163 306 155 296 Z"
+        fill="url(#v9FloorLight)"/>
+
+  <!-- Left closed turn of carved notch; visually a concave rounded pocket. -->
+  <ellipse cx="159" cy="286" rx="34" ry="34" fill="url(#v9BlindEnd)"/>
+  <path d="M150 279 C143 294 150 309 163 310
+           C170 311 177 306 186 301"
+        fill="none" stroke="#77624c" stroke-opacity=".40"
+        stroke-width="3.6" stroke-linecap="round"/>
+
+  <!-- Finely shaded receding edge. It stops before the small end gap;
+       the final slit is intentionally UNPAINTED and see-through. -->
+  <path d="M394 224 C415 217 433 213 446 204"
+        fill="none" stroke="url(#v9RightRecission)"
+        stroke-width="3" stroke-linecap="round" opacity=".62"/>
+</g>
+<!-- Original outer silhouette, mouth opening modestly deepened -->
+<use xlink:href="#jadeBody" fill="url(#matteBase)"/>
+<g clip-path="url(#bodyClip)">
+  <!-- Foundation, progressively stronger underside and right-side turn -->
+  <rect width="512" height="512" fill="url(#topDome)"/>
+  <rect width="512" height="512" fill="url(#bellyConvex)"/>
+  <rect width="512" height="512" fill="url(#topShoulder)"/>
+  <rect width="512" height="512" fill="url(#topWallRound)"/>
+  <rect width="512" height="512" fill="url(#bellyChin)"/>
+  <rect width="512" height="512" fill="url(#frontSlope)"/>
+
+  <!-- Upper solid face: curved upper dome extending naturally to upper lip, blended at edges. -->
+  <path d="M77 285 C98 221 130 156 169 119 C203 84 247 69 290 72 C365 73 428 111 456 166 C469 187 466 188 457 190 C367 204 279 218 206 243 C178 252 149 264 151 282 C148 300 119 304 77 330 Z" fill="url(#upperFaceBlend)"/>
+
+  <!-- Lower solid face: separate convex belly curvature; preserves the same outside silhouette. -->
+  <path d="M153 283 C160 300 170 302 184 294 C268 252 364 230 467 209 C485 223 491 265 489 306 C482 379 411 435 305 440 C215 443 143 420 91 396 C70 387 54 401 36 392 C25 384 27 370 43 350 C90 344 129 308 153 283 Z" fill="url(#lowerFaceBlend)"/>
+
+  <!-- Rounded cheek immediately below the carved opening: broad soft volume, not a luminous line. -->
+
+  <rect width="512" height="512" fill="url(#rightCurvature)"/>
+  <rect width="512" height="512" fill="url(#baseTurn)"/>
+  <rect width="512" height="512" fill="url(#leftNoseRound)"/>
+  <rect width="512" height="512" fill="url(#bottomBounce)"/>
+
+  <!-- Structural upper lip, not a shiny sticker: shadow rolls under a thick convex rim. -->
+  <path d="M146 283 C145 267 177 252 207 243 C284 217 401 200 457 190"
+      fill="none" stroke="url(#v7UpperChamfer)" stroke-width="11" stroke-linecap="round" opacity=".92"/>
+  <path d="M149 280 C154 266 176 253 209 244 C281 219 400 203 455 192"
+      fill="none" stroke="#fffdf4" stroke-width="1.8" stroke-linecap="round" opacity=".27"/>
+  <!-- Lower lip rolls toward viewer. Thin dark crease immediately behind warm bevel. -->
+  <path d="M148 296 C153 318 175 314 193 302 C266 257 356 230 467 209"
+      fill="none" stroke="#887259" stroke-width="5" stroke-linecap="round" opacity=".25"/>
+  <path d="M161 310 C172 319 186 308 201 299 C279 261 366 232 464 211"
+      fill="none" stroke="url(#v7LowerChamfer)" stroke-width="10" stroke-linecap="round" opacity=".82"/>
+  <path d="M186 307 C257 270 351 239 462 215"
+      fill="none" stroke="#fff7e8" stroke-width="1.7" stroke-linecap="round" opacity=".32"/>
+  <!-- Left junction: subtle occlusion at thickness transition. -->
+  <path d="M147 288 C146 305 157 316 174 311" fill="none" stroke="#77604a" stroke-width="4" opacity=".18" stroke-linecap="round"/>
+
+  <!-- Wide oil-matte reflections, with no hard specular line. -->
+  <path d="M127 208 C158 145 215 118 268 111" fill="none" stroke="#fffef8" stroke-width="30" stroke-opacity=".026" stroke-linecap="round"/>
+  <path d="M240 365 C304 388 382 351 419 299" fill="none" stroke="#fffef4" stroke-width="31" stroke-opacity=".045" stroke-linecap="round"/>
+</g>
+</svg>

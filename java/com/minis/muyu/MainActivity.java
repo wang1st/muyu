@@ -156,12 +156,28 @@ public class MainActivity extends Activity {
         });
 
         RadioGroup styleGroup = findViewById(R.id.style_group);
-        ((RadioButton) findViewById(MuyuState.muyuJade(this) ? R.id.style_jade : R.id.style_flat)).setChecked(true);
+        int modeNow = MuyuState.previewMode(this);
+        ((RadioButton) findViewById(modeNow == MuyuState.PREVIEW_3D ? R.id.style_jade
+                : (modeNow == MuyuState.PREVIEW_RELIEF ? R.id.style_relief : R.id.style_flat))).setChecked(true);
         styleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
-                boolean is3d = checkedId == R.id.style_jade;
-                MuyuState.setMuyuJade(MainActivity.this, is3d);
-                setMaterialVisible(is3d);
+                int mode = checkedId == R.id.style_jade ? MuyuState.PREVIEW_3D
+                        : (checkedId == R.id.style_relief ? MuyuState.PREVIEW_RELIEF : MuyuState.PREVIEW_FLAT);
+                MuyuState.setPreviewMode(MainActivity.this, mode);
+                setMaterialVisible(mode == MuyuState.PREVIEW_3D);
+                setToneVisible(mode != MuyuState.PREVIEW_3D);
+                FishWidget.renderAll(MainActivity.this, 0, false);
+                updatePreview();
+            }
+        });
+
+        RadioGroup toneGroup = findViewById(R.id.tone_group);
+        ((RadioButton) findViewById(MuyuState.whiteTone(this) == 1 ? R.id.tone_ivory
+                : (MuyuState.whiteTone(this) == 2 ? R.id.tone_moon : R.id.tone_paper))).setChecked(true);
+        toneGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
+                MuyuState.setWhiteTone(MainActivity.this, checkedId == R.id.tone_ivory ? 1
+                        : (checkedId == R.id.tone_moon ? 2 : 0));
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
             }
@@ -175,8 +191,10 @@ public class MainActivity extends Activity {
             @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
                 int mat = checkedId == R.id.mat_wood ? 1 : (checkedId == R.id.mat_amber ? 2 : 0);
                 MuyuState.setMaterial(MainActivity.this, mat);
-                MuyuState.setMuyuJade(MainActivity.this, true);
+                MuyuState.setPreviewMode(MainActivity.this, MuyuState.PREVIEW_3D);
                 ((RadioButton) findViewById(R.id.style_jade)).setChecked(true);
+                setMaterialVisible(true);
+                setToneVisible(false);
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
                 // 材质影响基底图（木有年轮、陶要烘焙色），重渲一张
@@ -262,7 +280,8 @@ public class MainActivity extends Activity {
             ((TextView) findViewById(R.id.version)).setText("木魚 v" + vn + "　·　Minis 出品");
         } catch (Exception ignored) {}
 
-        setMaterialVisible(MuyuState.muyuJade(this));
+        setMaterialVisible(MuyuState.previewMode(this) == MuyuState.PREVIEW_3D);
+        setToneVisible(MuyuState.previewMode(this) != MuyuState.PREVIEW_3D);
         // 标签页
         final int[] pages = {R.id.tap_page, R.id.sutra_page, R.id.look_page, R.id.sound_page};
         final int[] btns = {R.id.tab_tap, R.id.tab_sutra, R.id.tab_look, R.id.tab_sound};
@@ -304,19 +323,25 @@ public class MainActivity extends Activity {
 
     /** 外觀頁预览：小窗为可拖动的实时 3D；经文行用与桌面相同的位图 */
     private void updatePreview() {
-        boolean jade = MuyuState.muyuJade(this);
+        int mode = MuyuState.previewMode(this);
+        boolean jade = mode == MuyuState.PREVIEW_3D;
         android.widget.ImageView row = findViewById(R.id.preview_row);
         if (row != null) row.setImageBitmap(FishWidget.rowBitmap(this, true, false));
 
         android.widget.ImageView flat = findViewById(R.id.preview_fish);
-        if (flat != null) flat.setVisibility(jade ? android.view.View.GONE : android.view.View.VISIBLE);
+        if (flat != null) {
+            flat.setVisibility(jade ? android.view.View.GONE : android.view.View.VISIBLE);
+            if (!jade) flat.setImageBitmap(FlatRender.render(this, mode, MuyuState.whiteTone(this), 0));
+        }
         android.view.View host = findViewById(R.id.mini3d_host);
         if (host != null) host.setVisibility(jade ? android.view.View.VISIBLE : android.view.View.GONE);
 
         android.widget.TextView hint = findViewById(R.id.preview_hint);
-        if (hint != null) hint.setText(jade ? "拖動旋轉 · 雙擊全屏 3D" : "剪影為平面設計，無 3D");
+        if (hint != null) hint.setText(jade ? "拖動旋轉 · 雙擊全屏 3D"
+                : (mode == MuyuState.PREVIEW_RELIEF ? "微立體：光影勾畫的 2.5D 形態" : "剪影為平面設計，無 3D"));
 
         setMaterialVisible(jade);
+        setToneVisible(!jade);
         ensureMini3D();
         if (mini3d != null) {
             if (jade) { mini3d.onResume(); mini3d.requestRender(); }
@@ -417,6 +442,14 @@ public class MainActivity extends Activity {
     }
 
     /** 剪影时材质选择不可用（材质只对 3D 有意义） */
+    private void setToneVisible(boolean visible) {
+        int v = visible ? android.view.View.VISIBLE : android.view.View.GONE;
+        android.view.View h = findViewById(R.id.tone_header);
+        android.view.View g = findViewById(R.id.tone_group);
+        if (h != null) h.setVisibility(v);
+        if (g != null) g.setVisibility(v);
+    }
+
     private void setMaterialVisible(boolean visible) {
         int v = visible ? android.view.View.VISIBLE : android.view.View.GONE;
         android.view.View h = findViewById(R.id.mat_header);
@@ -439,7 +472,8 @@ public class MainActivity extends Activity {
         findViewById(android.R.id.content).postDelayed(new Runnable() {
             @Override public void run() { updatePreview(); }
         }, 1800);
-        setMaterialVisible(MuyuState.muyuJade(this));
+        setMaterialVisible(MuyuState.previewMode(this) == MuyuState.PREVIEW_3D);
+        setToneVisible(MuyuState.previewMode(this) != MuyuState.PREVIEW_3D);
         // 标签页
         final int[] pages = {R.id.tap_page, R.id.sutra_page, R.id.look_page, R.id.sound_page};
         final int[] btns = {R.id.tab_tap, R.id.tab_sutra, R.id.tab_look, R.id.tab_sound};

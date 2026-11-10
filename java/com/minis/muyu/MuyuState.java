@@ -40,6 +40,8 @@ public final class MuyuState {
     private static final String K_TEXT_INK = "textInk";
     private static final String K_TEXT_SCRIM = "textScrim";
     private static final String K_MUYU_JADE = "muyuJade";
+    private static final String K_PREVIEW_MODE = "previewMode";
+    private static final String K_WHITE_TONE = "whiteTone";
     private static final String K_LAST_TAB = "lastTab";
     private static final String K_BAKE_VER = "bakeVer";
     private static final String K_MAT = "material";      // 0 玉 / 1 木
@@ -131,9 +133,33 @@ public final class MuyuState {
         JadeRender.invalidate();
     }
 
-    /** 木鱼风格：false 剪影 / true 和田玉立体 */
-    public static boolean muyuJade(Context c) { return sp(c).getBoolean(K_MUYU_JADE, false); }
-    public static void setMuyuJade(Context c, boolean v) { sp(c).edit().putBoolean(K_MUYU_JADE, v).apply(); }
+    /** 预览形态：0 剪影 / 1 微立体 2.5D / 2 立体 3D */
+    public static final int PREVIEW_FLAT = 0;
+    public static final int PREVIEW_RELIEF = 1;
+    public static final int PREVIEW_3D = 2;
+
+    public static int previewMode(Context c) {
+        SharedPreferences p = sp(c);
+        if (!p.contains(K_PREVIEW_MODE)) {
+            int v = p.getBoolean(K_MUYU_JADE, false) ? PREVIEW_3D : PREVIEW_FLAT;
+            p.edit().putInt(K_PREVIEW_MODE, v).apply();
+            return v;
+        }
+        return p.getInt(K_PREVIEW_MODE, PREVIEW_FLAT);
+    }
+    public static void setPreviewMode(Context c, int v) {
+        sp(c).edit().putInt(K_PREVIEW_MODE, v).apply();
+        FlatRender.invalidate();
+    }
+    /** 兼容旧调用：是否 3D */
+    public static boolean muyuJade(Context c) { return previewMode(c) == PREVIEW_3D; }
+
+    /** 平面/2.5D 的白调：0 紙白 / 1 象牙白 / 2 月白 */
+    public static int whiteTone(Context c) { return sp(c).getInt(K_WHITE_TONE, 0); }
+    public static void setWhiteTone(Context c, int v) {
+        sp(c).edit().putInt(K_WHITE_TONE, v).apply();
+        FlatRender.invalidate();
+    }
 
     /** 字色：0 紙白（深色壁纸）/ 1 墨（浅色壁纸） */
     public static int textInk(Context c) {

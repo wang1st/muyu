@@ -507,11 +507,20 @@
                 android:textSize="13sp"
                 android:buttonTint="@color/gold" />
             <RadioButton
+                android:id="@+id/style_relief"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="微立體"
+                android:textColor="@color/text"
+                android:textSize="13sp"
+                android:buttonTint="@color/gold" />
+            <RadioButton
                 android:id="@+id/style_jade"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="立體（3D）"
+                android:text="立體"
                 android:textColor="@color/text"
                 android:textSize="13sp"
                 android:buttonTint="@color/gold" />
@@ -560,6 +569,54 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="蜜蠟"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tone_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="色彩"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/tone_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/tone_paper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="紙白"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+
+                <RadioButton
+                    android:id="@+id/tone_ivory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="象牙白"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+
+                <RadioButton
+                    android:id="@+id/tone_moon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="月白"
                     android:textColor="@color/text"
                     android:textSize="13sp"
                     android:buttonTint="@color/gold" />
