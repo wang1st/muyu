@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+    <ImageView
+        android:id="@+id/woodfishImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="18dp"
+        android:contentDescription="木鱼，轻触敲击"
+        android:scaleType="fitCenter"
+        android:src="@drawable/woodfish_idle" />
+    <TextView
+        android:id="@+id/woodfishCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#D9CEBB"
+        android:textSize="13sp" />
+</FrameLayout>

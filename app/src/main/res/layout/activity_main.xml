@@ -445,20 +445,47 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/preview_widget"
+                    android:id="@+id/preview_fish"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="#0D0B09"
+                    android:padding="26dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/fish_tight"
+                    android:visibility="gone" />
+
+                <FrameLayout
+                    android:id="@+id/mini3d_host"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="#0D0B09" />
+
+                <ImageView
+                    android:id="@+id/preview_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="false"
-                    android:background="#0D0B09"
-                    android:scaleType="fitCenter" />
+                    android:layout_marginTop="4dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />              
+            
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/preview_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="拖動旋轉 · 雙擊全屏 3D"
+                android:textColor="@color/text3"
+                android:textSize="11sp" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="木魚風格"
+                android:text="預覽"
                 android:textColor="@color/text"
                 android:textSize="15sp" />
 
@@ -484,147 +511,60 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="和田玉（立體）"
+                android:text="立體（3D）"
                 android:textColor="@color/text"
                 android:textSize="13sp"
                 android:buttonTint="@color/gold" />
             </RadioGroup>
 
             <TextView
+                android:id="@+id/mat_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="玉 · 預設"
+                android:text="材質"
                 android:textColor="@color/text"
                 android:textSize="15sp" />
-            <LinearLayout
+
+            <RadioGroup
+                android:id="@+id/mat_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_card"
-                android:padding="12dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/mat_jade"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="玉石"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
 
-                <Button
-                    android:id="@+id/jade_white"
+                <RadioButton
+                    android:id="@+id/mat_wood"
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="白玉"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_celadon"
+                    android:text="木頭"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+
+                <RadioButton
+                    android:id="@+id/mat_amber"
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="青玉"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_honey"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
                     android:text="蜜蠟"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_ink"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="墨玉"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+            </RadioGroup>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/jade_ice"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="冰種"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_old"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="老玉"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_porcelain"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="素瓷"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                <Button
-                    android:id="@+id/jade_night"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/bg_chip_sel"
-                    
-                    android:text="夜玉"
-                    android:textColor="@color/gold"
-                    android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -731,7 +671,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="文字底襯　0"
+                android:text="底襯　0"
                 android:textColor="@color/text2"
                 android:textSize="12sp" />
 

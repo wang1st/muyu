@@ -31,6 +31,9 @@ public final class MuyuState {
     private static final String K_NUM_POS = "numPos";
     private static final String K_NUM_HOT = "numHot";
     private static final String K_PAPER = "paper";
+    private static final String K_VIEW_YAW = "viewYaw";
+    private static final String K_VIEW_PITCH = "viewPitch";
+    private static final String K_VIEW_ZOOM = "viewZoom";
     private static final String K_TONE_HZ = "toneHz";
     private static final String K_TONE_BRIGHT = "toneBright";
     private static final String K_TONE_DECAY = "toneDecay";
@@ -38,6 +41,14 @@ public final class MuyuState {
     private static final String K_TEXT_SCRIM = "textScrim";
     private static final String K_MUYU_JADE = "muyuJade";
     private static final String K_LAST_TAB = "lastTab";
+    private static final String K_BAKE_VER = "bakeVer";
+    private static final String K_MAT = "material";      // 0 玉 / 1 木
+    private static final String K_WOOD_R = "woodR";
+    private static final String K_WOOD_G = "woodG";
+    private static final String K_WOOD_B = "woodB";
+    private static final String J_TINT_R = "jTintR";
+    private static final String J_TINT_G = "jTintG";
+    private static final String J_TINT_B = "jTintB";
     private static final String J_BRIGHT = "jBright", J_WARM = "jWarm", J_MATTE = "jMatte",
             J_TRANS = "jTrans", J_VOL = "jVol", J_MOUTH = "jMouth",
             J_SH = "jSh", J_SPREAD = "jSpread", J_OFF = "jOff";
@@ -76,6 +87,30 @@ public final class MuyuState {
 
     public static int lastTab(Context c) { return sp(c).getInt(K_LAST_TAB, 0); }
     public static void setLastTab(Context c, int v) { sp(c).edit().putInt(K_LAST_TAB, v).apply(); }
+
+    public static int bakeVer(Context c) { return sp(c).getInt(K_BAKE_VER, 0); }
+    public static void setBakeVer(Context c, int v) { sp(c).edit().putInt(K_BAKE_VER, v).apply(); }
+
+    public static int material(Context c) { return sp(c).getInt(K_MAT, 0); }
+    public static void setMaterial(Context c, int v) {
+        sp(c).edit().putInt(K_MAT, v).apply();
+        JadeRender.invalidate();
+    }
+    public static float woodR(Context c) { return sp(c).getFloat(K_WOOD_R, 1.00f); }
+    public static float woodG(Context c) { return sp(c).getFloat(K_WOOD_G, 1.00f); }
+    public static float woodB(Context c) { return sp(c).getFloat(K_WOOD_B, 1.00f); }
+    public static void setWood(Context c, float r, float g, float b) {
+        sp(c).edit().putFloat(K_WOOD_R, r).putFloat(K_WOOD_G, g).putFloat(K_WOOD_B, b).apply();
+        JadeRender.invalidate();
+    }
+
+    public static float jadeTintR(Context c) { return sp(c).getFloat(J_TINT_R, 1f); }
+    public static float jadeTintG(Context c) { return sp(c).getFloat(J_TINT_G, 1f); }
+    public static float jadeTintB(Context c) { return sp(c).getFloat(J_TINT_B, 1f); }
+    public static void setJadeTint(Context c, float r, float g, float b) {
+        sp(c).edit().putFloat(J_TINT_R, r).putFloat(J_TINT_G, g).putFloat(J_TINT_B, b).apply();
+        JadeRender.invalidate();
+    }
 
     /** 玉参数（0..100），默认即用户给的样参 */
     public static int jadeBright(Context c) { return sp(c).getInt(J_BRIGHT, 55); }
@@ -127,6 +162,14 @@ public final class MuyuState {
     }
 
     /** 敲击时数字是否加亮 */
+    public static float viewYaw(Context c) { return sp(c).getFloat(K_VIEW_YAW, -22f); }
+    public static float viewPitch(Context c) { return sp(c).getFloat(K_VIEW_PITCH, 14f); }
+    public static float viewZoom(Context c) { return sp(c).getFloat(K_VIEW_ZOOM, 1f); }
+    public static void setView(Context c, float yaw, float pitch, float zoom) {
+        sp(c).edit().putFloat(K_VIEW_YAW, yaw).putFloat(K_VIEW_PITCH, pitch)
+                .putFloat(K_VIEW_ZOOM, zoom).apply();
+    }
+
     public static boolean paperOn(Context c) { return sp(c).getBoolean(K_PAPER, true); }
     public static void setPaper(Context c, boolean v) { sp(c).edit().putBoolean(K_PAPER, v).apply(); }
 

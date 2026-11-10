@@ -9,10 +9,18 @@
 </p>
 
 <p align="center">
-  <img src="docs/preview-widget.png" width="330" alt="桌面小部件" />
-  <img src="docs/preview-settings.png" width="280" alt="设置页" />
-  <img src="docs/preview-about.png" width="280" alt="關於页" />
+  <img src="docs/preview-widget.png" width="300" alt="桌面小部件" />
+  <img src="docs/preview-tap.png" width="260" alt="敲擊页" />
+  <img src="docs/preview-sutra.png" width="260" alt="經文页" />
 </p>
+
+<p align="center">
+  <img src="docs/preview-jade.png" width="266" alt="玉石" />
+  <img src="docs/preview-wood.png" width="266" alt="木頭" />
+  <img src="docs/preview-amber.png" width="266" alt="蜜蠟" />
+</p>
+
+<p align="center"><sub>渲染的三种材质：和田玉 · 木头 · 蜜蜡（App 内可拖动的实时 3D，双击全屏）</sub></p>
 
 ---
 
@@ -78,7 +86,11 @@
 - **108 一轮**：每敲满 108 次响一声磬、轮次 +1（跨天连续累计，每个 108 倍数都会响）。
 - **经卷行**：两行 × 9 字，方框逐字前进；可选《金刚经》（5,214 字）或《心经》（260 字），读满循环。
 - **回向**：清空今日数字并记入「修習記錄」，不动经文位置。
-- **全部可调**：数字位置（不显示 / 木鱼下 / 经文右下）、敲击时数字是否加亮、经文对比模式（同色 / 已读亮 / 未读亮）、音效与震动开关。
+- **实时 3D 预览**：外觀页的小窗是真实 OpenGL ES 2.0 渲染的 3D 木鱼——拖动旋转、双指缩放、双击全屏；停手 0.7 秒自动把当前角度烘焙成桌面小部件的基底图，**预览定什么角度，桌面就是什么角度**。
+- **三种材质**：和田玉（暖白、真透明、边缘透光）/ 木头（清漆、深纹清晰）/ 蜜蜡（深橙、亮黄分区、锐高光）。切换材质后自动重烘基底图，桌面即刻同步。
+- **剪影 / 立体双模**：剪影是纯平面设计（无 3D、材质不可选）；立体模式才开放材质。
+- **纸质经卷**：经文行可铺一条深色宣纸纸纹（底板强度 0–60% 由「底襯」滑杆控制，0 = 完全无底）。
+- **全部可调**：数字位置（不显示 / 木鱼下 / 经文右下）、敲击时数字是否加亮、经文对比模式（同色 / 已读亮 / 未读亮）、音效与震动开关、字号与记录账簿式排版（等宽数字）。
 
 ---
 
@@ -91,11 +103,18 @@
 │   ├── assets/
 │   │   ├── sutra.txt          # 金刚经（繁体、无标点，5,214 字）
 │   │   └── xinjing.txt        # 心经（260 字）
+│   ├── assets/models/
+│   │   └── woodfish_jade_mobile.glb   # 3D 模型（59k 面，含顶点色）
 │   └── res/
-│       ├── layout/            # widget.xml（小部件） / activity_main.xml（设置页）
-│       └── drawable-nodpi/    # 剪影、敲击帧、图标前景
+│       ├── layout/            # widget.xml（小部件） / activity_main.xml（设置页） / activity_model3d.xml
+│       └── drawable-nodpi/    # 剪影、敲击帧、纸纹 paper.png、木纹 wood.png、蜜蜡 amber.png
 ├── java/com/minis/muyu/
 │   ├── FishWidget.java        # 小部件：敲击、位图渲染、音效、振动
+│   ├── JadeView.java          # 实时 3D 视图（拖动/缩放/双击，小窗与全屏共用）
+│   ├── Off3D.java             # 离屏 3D 渲染：把当前视角烘焙成小部件基底图（EGL pbuffer）
+│   ├── GlbMesh.java           # GLB 解析（POSITION/COLOR_0/索引，运行时算法线）
+│   ├── JadeRender.java        # 2D 合成与阴影（基座图 → 小部件位图）
+│   ├── Model3DActivity.java   # 全屏 3D 预览页
 │   ├── MuyuState.java         # 状态与设置（SharedPreferences）
 │   ├── SutraText.java         # 经文加载
 │   └── MainActivity.java      # 设置页 / 修習記錄 / 關於

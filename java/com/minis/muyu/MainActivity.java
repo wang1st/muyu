@@ -19,6 +19,10 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
     private TextView total, rounds;
+    private JadeView mini3d;
+    /** 着色器/材质贴图变更时递增，触发一次重烘焙 */
+    private static final int BAKE_VER = 13;
+    private volatile boolean snapBusy;
     private CheckBox swSound, swVib, swSutra;
 
     @Override
@@ -155,41 +159,31 @@ public class MainActivity extends Activity {
         ((RadioButton) findViewById(MuyuState.muyuJade(this) ? R.id.style_jade : R.id.style_flat)).setChecked(true);
         styleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
-                MuyuState.setMuyuJade(MainActivity.this, checkedId == R.id.style_jade);
+                boolean is3d = checkedId == R.id.style_jade;
+                MuyuState.setMuyuJade(MainActivity.this, is3d);
+                setMaterialVisible(is3d);
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
             }
         });
 
-        View.OnClickListener jadePreset = new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                int id = v.getId();
-                int[][] P = {
-                        {55, 62, 90, 65, 65, 38, 60, 20},   // 白玉
-                        {58, 20, 86, 70, 62, 34, 55, 20},   // 青玉
-                        {60, 88, 74, 55, 68, 42, 62, 24},   // 蜜蠟
-                        {34, 45, 82, 40, 60, 55, 66, 18},   // 墨玉
-                        {70, 40, 96, 92, 68, 28, 52, 26},   // 冰種
-                        {48, 78, 84, 58, 72, 62, 74, 14},   // 老玉
-                        {86, 45, 100, 70, 58, 18, 44, 28},  // 素瓷
-                        {24, 30, 88, 78, 64, 70, 70, 10},   // 夜玉
-                };
-                int idx = id == R.id.jade_celadon ? 1 : id == R.id.jade_honey ? 2
-                        : id == R.id.jade_ink ? 3 : id == R.id.jade_ice ? 4
-                        : id == R.id.jade_old ? 5 : id == R.id.jade_porcelain ? 6
-                        : id == R.id.jade_night ? 7 : 0;
-                int[] p = P[idx];
-                MuyuState.setJade(MainActivity.this, p[0], p[1], p[2], p[3], p[4], 50, p[5], p[6], p[7]);
+        RadioGroup matGroup = findViewById(R.id.mat_group);
+        int matNow = MuyuState.material(this);
+        ((RadioButton) findViewById(matNow == 1 ? R.id.mat_wood
+                : (matNow == 2 ? R.id.mat_amber : R.id.mat_jade))).setChecked(true);
+        matGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
+                int mat = checkedId == R.id.mat_wood ? 1 : (checkedId == R.id.mat_amber ? 2 : 0);
+                MuyuState.setMaterial(MainActivity.this, mat);
                 MuyuState.setMuyuJade(MainActivity.this, true);
                 ((RadioButton) findViewById(R.id.style_jade)).setChecked(true);
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
-                updatePreview();
+                // 材质影响基底图（木有年轮、陶要烘焙色），重渲一张
+                snapshotWidgetBase(MuyuState.viewYaw(MainActivity.this),
+                        MuyuState.viewPitch(MainActivity.this), 1f);
             }
-        };
-        int[] presetBtns = {R.id.jade_white, R.id.jade_celadon, R.id.jade_honey, R.id.jade_ink,
-                R.id.jade_ice, R.id.jade_old, R.id.jade_porcelain, R.id.jade_night};
-        for (int id : presetBtns) findViewById(id).setOnClickListener(jadePreset);
+        });
 
         RadioGroup inkGroup = findViewById(R.id.ink_group);
         ((RadioButton) findViewById(MuyuState.textInk(this) == 1 ? R.id.ink_dark : R.id.ink_light)).setChecked(true);
@@ -204,10 +198,10 @@ public class MainActivity extends Activity {
         final SeekBar scrimBar = findViewById(R.id.seek_scrim);
         final TextView scrimLabel = findViewById(R.id.scrim_label);
         scrimBar.setProgress(MuyuState.textScrim(this));
-        scrimLabel.setText("文字底襯　" + scrimBar.getProgress() + "%");
+        scrimLabel.setText("底襯　" + scrimBar.getProgress() + "%");
         scrimBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override public void onProgressChanged(SeekBar s, int p, boolean u) {
-                scrimLabel.setText("文字底襯　" + p + "%");
+                scrimLabel.setText("底襯　" + p + "%");
                 MuyuState.setTextScrim(MainActivity.this, p);
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
@@ -268,6 +262,7 @@ public class MainActivity extends Activity {
             ((TextView) findViewById(R.id.version)).setText("木魚 v" + vn + "　·　Minis 出品");
         } catch (Exception ignored) {}
 
+        setMaterialVisible(MuyuState.muyuJade(this));
         // 标签页
         final int[] pages = {R.id.tap_page, R.id.sutra_page, R.id.look_page, R.id.sound_page};
         final int[] btns = {R.id.tab_tap, R.id.tab_sutra, R.id.tab_look, R.id.tab_sound};
@@ -307,28 +302,71 @@ public class MainActivity extends Activity {
         } catch (Exception ignored) {}
     }
 
-    /** 外觀頁實時預覽：用 widget 同款渲染管線合成「魚 + 經文/數字行」 */
+    /** 外觀頁预览：小窗为可拖动的实时 3D；经文行用与桌面相同的位图 */
     private void updatePreview() {
-        android.widget.ImageView pv = findViewById(R.id.preview_widget);
-        if (pv == null) return;
-        float dp = getResources().getDisplayMetrics().density;
-        int W = getResources().getDisplayMetrics().widthPixels - (int) (64 * dp);
-        if (W <= 0) return;
+        boolean jade = MuyuState.muyuJade(this);
+        android.widget.ImageView row = findViewById(R.id.preview_row);
+        if (row != null) row.setImageBitmap(FishWidget.rowBitmap(this, true, false));
 
-        android.graphics.Bitmap row = FishWidget.rowBitmap(this, true, false);
-        android.graphics.Bitmap fish = MuyuState.muyuJade(this)
-                ? JadeRender.render(this, 0)
-                : android.graphics.BitmapFactory.decodeResource(getResources(), R.drawable.fish_tight);
+        android.widget.ImageView flat = findViewById(R.id.preview_fish);
+        if (flat != null) flat.setVisibility(jade ? android.view.View.GONE : android.view.View.VISIBLE);
+        android.view.View host = findViewById(R.id.mini3d_host);
+        if (host != null) host.setVisibility(jade ? android.view.View.VISIBLE : android.view.View.GONE);
 
-        int fishH = (int) (W * (MuyuState.muyuJade(this) ? 0.52f : 0.42f));
-        int gap = (int) (10 * dp);
-        int H = fishH + gap + row.getHeight();
-        android.graphics.Bitmap out = android.graphics.Bitmap.createBitmap(W, H, android.graphics.Bitmap.Config.ARGB_8888);
-        android.graphics.Canvas cv = new android.graphics.Canvas(out);
-        int fw = (int) ((float) fish.getWidth() / fish.getHeight() * fishH);
-        cv.drawBitmap(fish, null, new android.graphics.Rect((W - fw) / 2, 0, (W + fw) / 2, fishH), null);
-        cv.drawBitmap(row, (W - row.getWidth()) / 2f, fishH + gap, null);
-        pv.setImageBitmap(out);
+        android.widget.TextView hint = findViewById(R.id.preview_hint);
+        if (hint != null) hint.setText(jade ? "拖動旋轉 · 雙擊全屏 3D" : "剪影為平面設計，無 3D");
+
+        setMaterialVisible(jade);
+        ensureMini3D();
+        if (mini3d != null) {
+            if (jade) { mini3d.onResume(); mini3d.requestRender(); }
+            else mini3d.onPause();
+        }
+    }
+
+    /** 小窗 3D（可拖动；双击全屏；停手自动定格为小部件基底） */
+    private void ensureMini3D() {
+        if (mini3d != null) return;
+        android.widget.FrameLayout host = findViewById(R.id.mini3d_host);
+        if (host == null) return;
+        mini3d = new JadeView(this, false);
+        host.addView(mini3d, new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT));
+        mini3d.setListener(new JadeView.Listener() {
+            @Override public void onDoubleTap() {
+                startActivity(new android.content.Intent(MainActivity.this, Model3DActivity.class));
+            }
+            @Override public void onSettled(float yaw, float pitch, float zoom) {
+                MuyuState.setView(MainActivity.this, yaw, pitch, zoom);
+                snapshotWidgetBase(yaw, pitch, zoom);
+                updatePreview();
+            }
+        });
+    }
+
+    /** 小窗静止后预渲染小部件基底图（同一后台线程串行：写盘 → 失效 → 刷新小部件） */
+    private void snapshotWidgetBase(final float yaw, final float pitch, final float zoom) {
+        if (snapBusy) return;
+        snapBusy = true;
+        final android.content.Context app = getApplicationContext();
+        new Thread(new Runnable() {
+            @Override public void run() {
+                try {
+                    if (Off3D.renderToFile(app, yaw, pitch, zoom)) {
+                        JadeRender.reloadBase();
+                        runOnUiThread(new Runnable() {
+                            @Override public void run() {
+                                FishWidget.renderAll(MainActivity.this, 0, false);
+                                updatePreview();   // 新基底落盘后再刷一次预览，避免滞后一拍
+                            }
+                        });
+                    }
+                } finally {
+                    snapBusy = false;
+                }
+            }
+        }, "off3d-mini").start();
     }
 
     private static class HistAdapter extends android.widget.ArrayAdapter<String> {
@@ -378,9 +416,30 @@ public class MainActivity extends Activity {
         refreshHistory();
     }
 
+    /** 剪影时材质选择不可用（材质只对 3D 有意义） */
+    private void setMaterialVisible(boolean visible) {
+        int v = visible ? android.view.View.VISIBLE : android.view.View.GONE;
+        android.view.View h = findViewById(R.id.mat_header);
+        android.view.View g = findViewById(R.id.mat_group);
+        if (h != null) h.setVisibility(v);
+        if (g != null) g.setVisibility(v);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        // 每次回到前台把小部件重绘一遍，设置改完打开 App 即刻同步
+        FishWidget.renderAll(this, 0, false);
+        ensureMini3D();
+        if (MuyuState.bakeVer(this) != BAKE_VER) {
+            MuyuState.setBakeVer(this, BAKE_VER);
+            snapshotWidgetBase(MuyuState.viewYaw(this), MuyuState.viewPitch(this), 1f);
+        }
+        // 3D 定格图可能刚在后台写入，稍后补一次预览刷新
+        findViewById(android.R.id.content).postDelayed(new Runnable() {
+            @Override public void run() { updatePreview(); }
+        }, 1800);
+        setMaterialVisible(MuyuState.muyuJade(this));
         // 标签页
         final int[] pages = {R.id.tap_page, R.id.sutra_page, R.id.look_page, R.id.sound_page};
         final int[] btns = {R.id.tab_tap, R.id.tab_sutra, R.id.tab_look, R.id.tab_sound};

@@ -23,8 +23,26 @@ public final class JadeRender {
         CACHE = null;
     }
 
+    /** 基座图换了（离屏 3D 重渲）后调用：丢弃旧基座与缓存 */
+    public static synchronized void reloadBase() {
+        BASE_MTIME = -1L;
+        BASE = null;
+        CACHE_SIG = "";
+        CACHE = null;
+    }
+
     /** 按当前参数渲染；press: 0 静息 / 1 压形 / 2 回弹 */
+    private static long BASE_MTIME = -1L;
+
     public static synchronized Bitmap render(Context c, int press) {
+        java.io.File bf = new java.io.File(c.getFilesDir(), "fish3d.png");
+        long mt = bf.exists() ? bf.lastModified() : 0L;
+        if (mt != BASE_MTIME) {
+            BASE_MTIME = mt;
+            BASE = null;
+            CACHE_SIG = "";
+            CACHE = null;
+        }
         int br = MuyuState.jadeBright(c), wa = MuyuState.jadeWarm(c), ma = MuyuState.jadeMatte(c);
         int tr = MuyuState.jadeTranslucent(c), vo = MuyuState.jadeVolume(c);
         int sh = MuyuState.jadeShadow(c), sp = MuyuState.jadeShadowSpread(c), so = MuyuState.jadeShadowOffset(c);
@@ -32,7 +50,9 @@ public final class JadeRender {
         if (sig.equals(CACHE_SIG) && CACHE != null) return CACHE;
 
         if (BASE == null) {
-            BASE = BitmapFactory.decodeResource(c.getResources(), R.drawable.fish_jade);
+            java.io.File f = new java.io.File(c.getFilesDir(), "fish3d.png");
+            if (f.exists()) BASE = BitmapFactory.decodeFile(f.getAbsolutePath());
+            if (BASE == null) BASE = BitmapFactory.decodeResource(c.getResources(), R.drawable.fish_jade);
         }
         int bw = BASE.getWidth(), bh = BASE.getHeight();
         float volume = 1f + (vo - 50) / 100f * 0.16f;          // 体量 0.92~1.08
@@ -51,16 +71,23 @@ public final class JadeRender {
         float warmB = 1f - (wa - 50) / 100f * 0.18f;
         float sat = 1f - ma / 100f * 0.55f;                    // 哑光=降饱和
         ColorMatrix cm = new ColorMatrix();
-        cm.setSaturation(sat);
-        ColorMatrix scale = new ColorMatrix(new float[]{
-                bright * warmR, 0, 0, 0, 0,
-                0, bright, 0, 0, 0,
-                0, 0, bright * warmB, 0, 0,
-                0, 0, 0, 1f, 0
-        });
-        cm.postConcat(scale);
+        // 先乘玉基色（与 3D 实时渲染同一套色），再做亮度/暖度/哑光
+        boolean jadeMat = false;   // 颜色已在离屏烘焙时确定（与全屏实时同源），静态侧不再二次调色
+        cm.set(new float[]{1,0,0,0,0, 0,1,0,0,0, 0,0,1,0,0, 0,0,0,1,0});
+        if (jadeMat) {
+            ColorMatrix satM = new ColorMatrix();
+            satM.setSaturation(sat);
+            cm.postConcat(satM);
+            ColorMatrix scale = new ColorMatrix(new float[]{
+                    bright * warmR, 0, 0, 0, 0,
+                    0, bright, 0, 0, 0,
+                    0, 0, bright * warmB, 0, 0,
+                    0, 0, 0, 1f, 0
+            });
+            cm.postConcat(scale);
+        }
         p.setColorFilter(new ColorMatrixColorFilter(cm));
-        p.setAlpha((int) (255 * (tr / 100f * 0.55f + 0.45f)));  // 通透度 → 透明度 45%~100%
+        p.setAlpha(255);   // 通透由烘焙图的 alpha 承担
 
         // —— 接触阴影 ——
         if (sh > 0) {

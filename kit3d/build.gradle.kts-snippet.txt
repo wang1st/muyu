@@ -1,0 +1,19 @@
+// SceneView 4.67.x integration requires modern Android toolchain.
+// As of 2026-11-10 its documented minimums are: compileSdk 37,
+// AGP 9.4+, Kotlin 2.4+, JDK 21, minSdk 24.
+// Do not blindly replace all existing Gradle settings; merge these with your app.
+
+// in dependencies { ... }
+implementation("io.github.sceneview:sceneview:4.67.0")
+
+// in android { ... }
+compileSdk = 37
+// in defaultConfig { ... }
+minSdk = 24
+// in compileOptions { ... }
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
+
+// Kotlin JVM target (Kotlin Gradle 2.4 DSL):
+// import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+// kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_21) } }

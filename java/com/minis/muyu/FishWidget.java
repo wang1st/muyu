@@ -186,7 +186,9 @@ public class FishWidget extends AppWidgetProvider {
         float x0 = (bw - lineW) / 2f;
         float y0 = pad + numFs * 1.15f + fs;
         // 紙質底紋：深色宣紙小條（僅深壁紙/紙白字模式；淺壁紙墨字模式不畫）
-        if (!ink && MuyuState.paperOn(c)) {
+        // 底襯滑杆是唯一主控：0 = 無底（紙也不畫），非 0 按強度控制紙紋濃淡
+        final int backing = MuyuState.textScrim(c);
+        if (!ink && MuyuState.paperOn(c) && backing > 0) {
             android.graphics.Bitmap paper = paperTexture(c);
             if (paper != null) {
                 float padX = fs * 0.55f, padY = fs * 0.45f;
@@ -198,6 +200,7 @@ public class FishWidget extends AppWidgetProvider {
                 cv.save();
                 cv.clipPath(clip);
                 Paint pp = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+                pp.setAlpha((int) (242 * (0.34f + 0.66f * Math.min(1f, backing / 60f))));
                 cv.drawBitmap(paper, null, new android.graphics.RectF(l, t, r, b), pp);
                 cv.restore();
                 Paint edge = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -1,0 +1,8 @@
+PROCEDURAL MOKUGYO V2 — GEOMETRY CHECKS
+High: 95554 vertices, 191104 triangles, watertight=True
+Mobile: 29623 vertices, 59242 triangles, watertight=True
+Symmetry: signed-distance function is strictly invariant under Y -> -Y (source axes).
+Sample nearest vertex reflection deviation: median 0.00611, p95 0.01008, max 0.01498 normalized units
+GLB axes: +Y up, +X longitudinal, +Z/-Z front/back.
+Material: PBR metallic=0, roughness=0.87, milky jade + warm inner albedo
+Geometry: one closed thick shell; symmetric slit opens to an actual hollow cavity.
