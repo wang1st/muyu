@@ -43,6 +43,7 @@ public final class MuyuState {
     private static final String K_PREVIEW_MODE = "previewMode";
     private static final String K_WHITE_TONE = "whiteTone";
     private static final String K_RECITE = "recite";
+    private static final String K_VOICE_MALE = "voiceMale";
     private static final String K_LAST_TAB = "lastTab";
     private static final String K_BAKE_VER = "bakeVer";
     private static final String K_MAT = "material";      // 0 玉 / 1 木
@@ -202,6 +203,13 @@ public final class MuyuState {
     public static void setRecite(Context c, boolean v) {
         sp(c).edit().putBoolean(K_RECITE, v).apply();
         if (!v) TtsSpeaker.stop();
+    }
+
+    /** 誦讀音色：false 女聲 / true 男聲（低沉、蒼老） */
+    public static boolean voiceMale(Context c) { return sp(c).getBoolean(K_VOICE_MALE, false); }
+    public static void setVoiceMale(Context c, boolean v) {
+        sp(c).edit().putBoolean(K_VOICE_MALE, v).apply();
+        TtsSpeaker.applyVoice(c);
     }
 
     public static boolean paperOn(Context c) { return sp(c).getBoolean(K_PAPER, true); }

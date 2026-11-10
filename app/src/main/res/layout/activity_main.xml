@@ -152,6 +152,35 @@
                 android:buttonTint="@color/gold"
                 android:textColor="@color/text" />
 
+            <RadioGroup
+                android:id="@+id/voice_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/voice_female"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="女聲"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+
+                <RadioButton
+                    android:id="@+id/voice_male"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="男聲（渾厚）"
+                    android:textColor="@color/text"
+                    android:textSize="13sp"
+                    android:buttonTint="@color/gold" />
+            </RadioGroup>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

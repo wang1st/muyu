@@ -116,6 +116,16 @@ public class MainActivity extends Activity {
         swVib.setChecked(MuyuState.vibOn(this));
         CheckBox swRecite = findViewById(R.id.sw_recite);
         swRecite.setChecked(MuyuState.reciteOn(this));
+        RadioGroup voiceGroup = findViewById(R.id.voice_group);
+        ((RadioButton) findViewById(MuyuState.voiceMale(this) ? R.id.voice_male : R.id.voice_female)).setChecked(true);
+        voiceGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
+                MuyuState.setVoiceMale(MainActivity.this, checkedId == R.id.voice_male);
+                String s = SutraText.get(MainActivity.this);
+                int i = MuyuState.sutraIndex(MainActivity.this, s.length());
+                TtsSpeaker.speak(MainActivity.this, SutraSpeech.at(s, i));
+            }
+        });
         swRecite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(CompoundButton v, boolean checked) {
                 MuyuState.setRecite(MainActivity.this, checked);
