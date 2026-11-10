@@ -22,6 +22,13 @@
 
 <p align="center"><sub>渲染的三种材质：和田玉 · 木头 · 蜜蜡（App 内可拖动的实时 3D，双击全屏）</sub></p>
 
+<p align="center">
+  <img src="docs/preview-25d.png" width="266" alt="微立体 2.5D" />
+  <img src="docs/preview-whites.png" width="600" alt="三种白" />
+</p>
+
+<p align="center"><sub>微立体（2.5D）：光影勾画的静态形态；剪影与 2.5D 都支持 紙白 / 象牙白 / 月白 三种白</sub></p>
+
 ---
 
 ## ✦ 下载
@@ -88,7 +95,8 @@
 - **回向**：清空今日数字并记入「修習記錄」，不动经文位置。
 - **实时 3D 预览**：外觀页的小窗是真实 OpenGL ES 2.0 渲染的 3D 木鱼——拖动旋转、双指缩放、双击全屏；停手 0.7 秒自动把当前角度烘焙成桌面小部件的基底图，**预览定什么角度，桌面就是什么角度**。
 - **三种材质**：和田玉（暖白、真透明、边缘透光）/ 木头（清漆、深纹清晰）/ 蜜蜡（深橙、亮黄分区、锐高光）。切换材质后自动重烘基底图，桌面即刻同步。
-- **剪影 / 立体双模**：剪影是纯平面设计（无 3D、材质不可选）；立体模式才开放材质。
+- **三种形态**：剪影（纯平面）/ 微立體（2.5D 光影稿）/ 立體（3D）。
+- **三种白**：剪影与 2.5D 共用 紙白 / 象牙白 / 月白，运行时染色，切换即时生效。
 - **纸质经卷**：经文行可铺一条深色宣纸纸纹（底板强度 0–60% 由「底襯」滑杆控制，0 = 完全无底）。
 - **全部可调**：数字位置（不显示 / 木鱼下 / 经文右下）、敲击时数字是否加亮、经文对比模式（同色 / 已读亮 / 未读亮）、音效与震动开关、字号与记录账簿式排版（等宽数字）。
 
@@ -105,6 +113,7 @@
 │   │   └── xinjing.txt        # 心经（260 字）
 │   ├── assets/models/
 │   │   └── woodfish_jade_mobile.glb   # 3D 模型（59k 面，含顶点色）
+│   ├── design/jade_v9.svg     # 2.5D 微立体的矢量源稿
 │   └── res/
 │       ├── layout/            # widget.xml（小部件） / activity_main.xml（设置页） / activity_model3d.xml
 │       └── drawable-nodpi/    # 剪影、敲击帧、纸纹 paper.png、木纹 wood.png、蜜蜡 amber.png
@@ -114,6 +123,7 @@
 │   ├── Off3D.java             # 离屏 3D 渲染：把当前视角烘焙成小部件基底图（EGL pbuffer）
 │   ├── GlbMesh.java           # GLB 解析（POSITION/COLOR_0/索引，运行时算法线）
 │   ├── JadeRender.java        # 2D 合成与阴影（基座图 → 小部件位图）
+│   ├── FlatRender.java        # 剪影/2.5D 染色（ColorMatrix，三种白）
 │   ├── Model3DActivity.java   # 全屏 3D 预览页
 │   ├── MuyuState.java         # 状态与设置（SharedPreferences）
 │   ├── SutraText.java         # 经文加载
