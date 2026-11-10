@@ -7,13 +7,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.SeekBar;
 
 /** 木魚：功德簿与设置（敲击在小部件上完成） */
 public class MainActivity extends Activity {
@@ -116,14 +120,11 @@ public class MainActivity extends Activity {
         swVib.setChecked(MuyuState.vibOn(this));
         CheckBox swRecite = findViewById(R.id.sw_recite);
         swRecite.setChecked(MuyuState.reciteOn(this));
-        RadioGroup voiceGroup = findViewById(R.id.voice_group);
-        ((RadioButton) findViewById(MuyuState.voiceMale(this) ? R.id.voice_male : R.id.voice_female)).setChecked(true);
-        voiceGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override public void onCheckedChanged(RadioGroup g, int checkedId) {
-                MuyuState.setVoiceMale(MainActivity.this, checkedId == R.id.voice_male);
-                String s = SutraText.get(MainActivity.this);
-                int i = MuyuState.sutraIndex(MainActivity.this, s.length());
-                TtsSpeaker.speak(MainActivity.this, SutraSpeech.at(s, i));
+        setupVoiceSpinner();
+        View note = findViewById(R.id.note_hint);
+        if (note != null) note.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, NotesActivity.class));
             }
         });
         swRecite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -336,6 +337,61 @@ public class MainActivity extends Activity {
         ((View) findViewById(btns[Math.max(0, Math.min(btns.length - 1, lastTab))])).performClick();
 
         refresh();
+    }
+
+    /** 音色下拉：列出系統所有中文音色，選中即保存並試讀 */
+    private void setupVoiceSpinner() {
+        final Spinner sp = findViewById(R.id.voice_spinner);
+        if (sp == null) return;
+        TtsSpeaker.init(this, new Runnable() {
+            @Override public void run() {
+                final java.util.List<android.speech.tts.Voice> vs = TtsSpeaker.voices();
+                final java.util.List<String> labels = TtsSpeaker.labels(vs);
+                if (labels.isEmpty()) {
+                    sp.setVisibility(View.GONE);
+                    return;
+                }
+                ArrayAdapter<String> ad = new ArrayAdapter<String>(MainActivity.this,
+                        android.R.layout.simple_spinner_item, labels) {
+                    @Override public View getView(int pos, View cv, ViewGroup parent) {
+                        TextView tv = (TextView) super.getView(pos, cv, parent);
+                        tv.setTextColor(0xFFE8E2D6);
+                        tv.setTextSize(13);
+                        return tv;
+                    }
+                    @Override public View getDropDownView(int pos, View cv, ViewGroup parent) {
+                        TextView tv = (TextView) super.getDropDownView(pos, cv, parent);
+                        tv.setTextColor(0xFFE8E2D6);
+                        tv.setTextSize(13);
+                        tv.setBackgroundColor(0xFF201A14);
+                        tv.setPadding(28, 28, 28, 28);
+                        return tv;
+                    }
+                };
+                ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sp.setAdapter(ad);
+                String saved = MuyuState.voiceName(MainActivity.this);
+                int sel = -1;
+                for (int i = 0; i < vs.size(); i++) if (vs.get(i).getName().equals(saved)) sel = i;
+                if (sel < 0) {                       // 默認：第一個本地中文（中國）音色
+                    for (int i = 0; i < vs.size(); i++) {
+                        android.speech.tts.Voice v = vs.get(i);
+                        if ("CN".equals(v.getLocale().getCountry()) && !v.isNetworkConnectionRequired()) { sel = i; break; }
+                    }
+                }
+                if (sel < 0) sel = 0;
+                sp.setSelection(sel, false);
+                sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override public void onItemSelected(AdapterView<?> a, View v, int pos, long id) {
+                        MuyuState.setVoiceName(MainActivity.this, vs.get(pos).getName());
+                        String s = SutraText.get(MainActivity.this);
+                        int i = MuyuState.sutraIndex(MainActivity.this, s.length());
+                        TtsSpeaker.speak(MainActivity.this, SutraSpeech.at(s, i));
+                    }
+                    @Override public void onNothingSelected(AdapterView<?> a) {}
+                });
+            }
+        });
     }
 
     private void openUrl(String url) {

@@ -20,6 +20,13 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false">
+
+        <activity
+            android:name=".NotesActivity"
+            android:label="讀音說明"
+            android:theme="@android:style/Theme.Material.NoActionBar" />
+
+        
         <activity
             android:name=".MainActivity"
             android:exported="true">

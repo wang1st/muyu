@@ -152,41 +152,40 @@
                 android:buttonTint="@color/gold"
                 android:textColor="@color/text" />
 
-            <RadioGroup
-                android:id="@+id/voice_group"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/voice_female"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="女聲"
-                    android:textColor="@color/text"
-                    android:textSize="13sp"
-                    android:buttonTint="@color/gold" />
+                    android:text="音色"
+                    android:textColor="@color/text2"
+                    android:textSize="12sp" />
 
-                <RadioButton
-                    android:id="@+id/voice_male"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="男聲（渾厚）"
-                    android:textColor="@color/text"
-                    android:textSize="13sp"
-                    android:buttonTint="@color/gold" />
-            </RadioGroup>
+                <Spinner
+                    android:id="@+id/voice_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/note_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="30dp"
-                android:text="讀音依《金剛經誦讀筆記》校正：般若 bō rě、祇樹 qí shù、降伏 xiáng fú、願樂 yào…"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:lineSpacingExtra="2dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:text="讀音依《金剛經誦讀筆記》校正：般若 bō rě、祇樹 qí shù、降伏 xiáng fú、願樂 yào…\n點此查看完整筆記 ›"
                 android:textColor="@color/text3"
                 android:textSize="11sp" />
 

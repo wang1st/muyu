@@ -46,6 +46,8 @@ public final class SutraSpeech {
             case '膝': return "西";                       // xī
             case '囑': return "主";                       // zhǔ
             case '筏': return "罚";                       // fá
+            case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
+            case '相': return "象";                       // 我相、人相 xiàng（TTS 默認 xiāng）
             default: return String.valueOf(ch);
         }
     }
