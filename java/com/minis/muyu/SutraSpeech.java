@@ -53,7 +53,8 @@ public final class SutraSpeech {
             case '量': return (prev == '思' || prev == '稱' || prev == '可') ? "梁" : "亮";
                                                           // 思量、稱量、不可量 liáng；無量 liàng
             case '應': return "英";                       // 應如是、應生瞋恨、應供養 皆 yīng（TTS 默認 yìng）
-            case '為': return (next == '人' || next == '他' || next == '汝') ? "位" : "为";  // 為人演說 wèi
+            case '為': return (next == '人' || next == '他' || next == '汝') ? "位" : "唯";
+            // 為人演說、為他人說 wèi；即為非住、寧為多不、無為法 wéi（用「唯」確保不讀 wèi）
             case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
             case '相': return "象";                       // 我相、人相 xiàng（TTS 默認 xiāng）
             default: return String.valueOf(ch);
