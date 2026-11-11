@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1240px; height:1754px; background:#F6F1E7; font-family:'Song',serif; color:#2B2419; position:relative; overflow:hidden; }
+  .paper { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.55), transparent 60%),
+      #F6F1E7; }
+  .grain { position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .rule { height:1px; background:#C9BCA4; }
+  .gold { color:#A87E33; }
+  .jade { color:#6E8F77; }
+  .foot { position:absolute; left:110px; right:110px; bottom:64px; display:flex; justify-content:space-between;
+    font-size:20px; color:#8A7B60; letter-spacing:.12em; }
+</style>
+</head>
+<body>
+  <div class="paper"></div>
+  <div class="grain"></div>
+  <!-- 封面 -->
+  <div style="position:absolute; top:150px; left:110px; font-size:22px; letter-spacing:.4em; color:#8A7B60;">桌面小部件 · 電子木魚</div>
+  <div style="position:absolute; top:330px; left:110px; font-size:120px; letter-spacing:.04em; line-height:1.15; font-weight:600;">木魚</div>
+  <div style="position:absolute; top:520px; left:112px; font-size:34px; color:#6B5D49; letter-spacing:.1em; line-height:1.9;">把木魚放在桌面上。<br>敲一下，<span class="gold">讀一個字</span>。</div>
+
+  <div style="position:absolute; left:0; right:0; top:820px; text-align:center;">
+    <img src="jade.png" style="width:560px; filter:drop-shadow(0 40px 46px rgba(60,45,20,.30));">
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1410px;" class="rule"></div>
+  <div style="position:absolute; left:110px; right:110px; top:1450px; display:flex; justify-content:space-between; align-items:flex-end;">
+    <div style="font-size:24px; line-height:2; color:#6B5D49;">金剛經 5174 字 · 逐字前進 · 讀滿循環<br>Android 8.0+　·　開源</div>
+    <div style="text-align:right;"><div style="font-size:40px; color:#A87E33; letter-spacing:.05em;">v1.9</div>
+      <div style="font-size:19px; color:#8A7B60; letter-spacing:.06em;">王猿外 出品</div></div>
+  </div>
+</body>
+</html>

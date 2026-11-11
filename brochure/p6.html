@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1240px; height:1754px; background:#F6F1E7; font-family:'Song',serif; color:#2B2419; position:relative; overflow:hidden; }
+  .paper { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.55), transparent 60%),
+      #F6F1E7; }
+  .grain { position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .rule { height:1px; background:#C9BCA4; }
+  .gold { color:#A87E33; }
+  .jade { color:#6E8F77; }
+  .foot { position:absolute; left:110px; right:110px; bottom:64px; display:flex; justify-content:space-between;
+    font-size:20px; color:#8A7B60; letter-spacing:.12em; }
+</style>
+</head>
+<body>
+  <div class="paper"></div>
+  <div class="grain"></div>
+
+  <div style="position:absolute; left:0; right:0; top:260px; text-align:center;">
+    <img src="jade.png" style="width:420px; filter:drop-shadow(0 34px 40px rgba(60,45,20,.28));">
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:860px; text-align:center;">
+    <div style="font-size:46px; letter-spacing:.06em; line-height:1.7;">敲是功德，讀是智慧。</div>
+    <div style="font-size:30px; color:#6B5D49; margin-top:26px; line-height:1.9;">
+      把木魚轉發給一位朋友，讓他也有一方桌面木魚——<br>這也是一次<span class="gold">法布施</span>。
+    </div>
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1240px; display:flex; justify-content:center; gap:40px;">
+    <div style="border:1px solid #C9BCA4; border-radius:999px; padding:22px 46px; font-size:26px; color:#2B2419;">隨喜轉發</div>
+    <div style="border:1px solid #C9BCA4; border-radius:999px; padding:22px 46px; font-size:26px; color:#2B2419;">廣結善緣</div>
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1420px; padding-top:28px; border-top:1px solid #C9BCA4; display:flex; justify-content:space-between; align-items:flex-end;">
+    <div style="font-size:22px; line-height:2; color:#6B5D49;">
+      開源 · 免費 · 無廣告<br>Android 8.0+
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:34px; color:#A87E33; letter-spacing:.04em;">github.com/wang1st/muyu</div>
+      <div style="font-size:19px; color:#8A7B60; letter-spacing:.08em; margin-top:8px;">木魚 v1.9　·　王猿外 出品</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>南無阿彌陀佛</span><span>敲一下，讀一個字</span></div>
+</body>
+</html>

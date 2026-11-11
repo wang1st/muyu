@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1240px; height:1754px; background:#F6F1E7; font-family:'Song',serif; color:#2B2419; position:relative; overflow:hidden; }
+  .paper { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.55), transparent 60%),
+      #F6F1E7; }
+  .grain { position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .rule { height:1px; background:#C9BCA4; }
+  .gold { color:#A87E33; }
+  .jade { color:#6E8F77; }
+  .foot { position:absolute; left:110px; right:110px; bottom:64px; display:flex; justify-content:space-between;
+    font-size:20px; color:#8A7B60; letter-spacing:.12em; }
+</style>
+</head>
+<body>
+  <div class="paper"></div>
+  <div class="grain"></div>
+
+  <div style="position:absolute; top:120px; left:110px; font-size:22px; letter-spacing:.4em; color:#8A7B60;">木魚 · 其五</div>
+  <div style="position:absolute; top:180px; left:110px; font-size:86px; letter-spacing:.04em; font-weight:600;">虔誠的考據</div>
+  <div style="position:absolute; top:300px; left:112px; font-size:30px; color:#6B5D49; letter-spacing:.08em; line-height:1.9;">
+    對產品審美的嚴格，和對經文的虔誠，<br>是我們不願妥協的兩件事。
+  </div>
+
+  <!-- 三本經文 -->
+  <div style="position:absolute; left:110px; right:110px; top:520px; display:flex; gap:40px;">
+    <div style="flex:1; border-top:2px solid #A87E33; padding-top:24px;">
+      <div style="font-size:84px; font-weight:600; color:#2B2419;">5174</div>
+      <div style="font-size:26px; color:#6B5D49; margin-top:10px; line-height:1.8;">金剛經 · 鳩摩羅什譯<br>逐處對齊佛恩網底本</div>
+    </div>
+    <div style="flex:1; border-top:2px solid #A87E33; padding-top:24px;">
+      <div style="font-size:84px; font-weight:600; color:#2B2419;">8222</div>
+      <div style="font-size:26px; color:#6B5D49; margin-top:10px; line-height:1.8;">金剛經 · 玄奘譯<br>能斷金剛分，專名按梵音</div>
+    </div>
+    <div style="flex:1; border-top:2px solid #A87E33; padding-top:24px;">
+      <div style="font-size:84px; font-weight:600; color:#2B2419;">260</div>
+      <div style="font-size:26px; color:#6B5D49; margin-top:10px; line-height:1.8;">心經 · 玄奘譯<br>標準流通本</div>
+    </div>
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1010px; display:flex; gap:40px;">
+    <div style="flex:1; border:1px solid #C9BCA4; border-radius:28px; padding:36px 38px; background:#FBF8F1;">
+      <div style="font-size:28px;" class="gold">讀音校正</div>
+      <div style="font-size:25px; line-height:1.95; color:#2B2419; margin-top:14px;">
+        般若 bō rě、降伏 xiáng、願樂 yào、<br>種善根 zhòng、供養 gòng、舍衛 shè、<br>應 yīng、為 wéi / wèi——<br>全經 316 字次，逐處判定。
+      </div>
+    </div>
+    <div style="flex:1; border:1px solid #C9BCA4; border-radius:28px; padding:36px 38px; background:#FBF8F1;">
+      <div style="font-size:28px;" class="gold">版本透明</div>
+      <div style="font-size:25px; line-height:1.95; color:#2B2419; margin-top:14px;">
+        底本網址、逐條變更清單、<br>閱讀進度遷移記錄，<br>全部公開在倉庫裡，<br>可複核、可追溯。
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1510px; padding-top:22px; border-top:1px solid #C9BCA4; font-size:22px; line-height:1.9; color:#6B5D49;">
+    沒有電腦、沒有 Android Studio、沒有 Gradle。一部手機，從第一行代碼到上架。
+  </div>
+
+  <div class="foot"><span>木魚 v1.9</span><span>5174 · 8222 · 260</span></div>
+</body>
+</html>

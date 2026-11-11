@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1240px; height:1754px; background:#F6F1E7; font-family:'Song',serif; color:#2B2419; position:relative; overflow:hidden; }
+  .paper { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.55), transparent 60%),
+      #F6F1E7; }
+  .grain { position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .rule { height:1px; background:#C9BCA4; }
+  .gold { color:#A87E33; }
+  .jade { color:#6E8F77; }
+  .foot { position:absolute; left:110px; right:110px; bottom:64px; display:flex; justify-content:space-between;
+    font-size:20px; color:#8A7B60; letter-spacing:.12em; }
+</style>
+</head>
+<body>
+  <div class="paper"></div>
+  <div class="grain"></div>
+
+  <div style="position:absolute; top:120px; left:110px; font-size:22px; letter-spacing:.4em; color:#8A7B60;">木魚 · 其四</div>
+  <div style="position:absolute; top:180px; left:110px; font-size:86px; letter-spacing:.04em; font-weight:600;">一件木魚，三種面貌</div>
+  <div style="position:absolute; top:300px; left:112px; font-size:30px; color:#6B5D49; letter-spacing:.08em; line-height:1.9;">
+    剪影簡淨、微立體溫潤、立體可把玩——<br>桌面是哪一面，你說了算。
+  </div>
+
+  <!-- 三態 -->
+  <div style="position:absolute; left:110px; right:110px; top:520px; display:flex; gap:40px;">
+    <div style="flex:1; text-align:center;">
+      <div style="height:560px; display:flex; align-items:center; justify-content:center; border:1px solid #C9BCA4; border-radius:32px; background:#FBF8F1;">
+        <img src="sil.png" style="width:360px;">
+      </div>
+      <div style="margin-top:22px; font-size:30px;">剪影</div>
+      <div style="font-size:22px; color:#8A7B60; margin-top:8px;">平面設計，最省電</div>
+    </div>
+    <div style="flex:1; text-align:center;">
+      <div style="height:560px; display:flex; align-items:center; justify-content:center; border:1px solid #C9BCA4; border-radius:32px; background:#FBF8F1;">
+        <img src="relief.png" style="width:360px;">
+      </div>
+      <div style="margin-top:22px; font-size:30px;">微立體</div>
+      <div style="font-size:22px; color:#8A7B60; margin-top:8px;">玉料：白玉 · 青白玉 · 糖玉</div>
+    </div>
+    <div style="flex:1; text-align:center;">
+      <div style="height:560px; display:flex; align-items:center; justify-content:center; border:1px solid #C9BCA4; border-radius:32px; background:#0B0908;">
+        <img src="3d.png" style="width:420px; border-radius:24px;">
+      </div>
+      <div style="margin-top:22px; font-size:30px;">立體 3D</div>
+      <div style="font-size:22px; color:#8A7B60; margin-top:8px;">拖動旋轉 · 全屏</div>
+    </div>
+  </div>
+
+  <div style="position:absolute; left:110px; right:110px; top:1330px; display:flex; gap:40px;">
+    <div style="flex:1; padding-top:20px; border-top:1px solid #C9BCA4; font-size:24px; line-height:1.9; color:#6B5D49;">
+      <span class="gold" style="font-size:28px;">三種白</span><br>紙白 · 象牙白 · 月白<br>剪影專用
+    </div>
+    <div style="flex:1; padding-top:20px; border-top:1px solid #C9BCA4; font-size:24px; line-height:1.9; color:#6B5D49;">
+      <span class="gold" style="font-size:28px;">三種玉</span><br>和田玉國標色類<br>白玉 · 青白玉 · 糖玉
+    </div>
+    <div style="flex:1; padding-top:20px; border-top:1px solid #C9BCA4; font-size:24px; line-height:1.9; color:#6B5D49;">
+      <span class="gold" style="font-size:28px;">三種材</span><br>玉石 · 木頭 · 蜜蠟<br>立體模式可用
+    </div>
+  </div>
+
+  <div class="foot"><span>木魚 v1.9</span><span>剪影 · 微立體 · 立體 3D</span></div>
+</body>
+</html>
