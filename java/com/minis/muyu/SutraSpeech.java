@@ -38,6 +38,20 @@ public final class SutraSpeech {
             case '著': return "浊";                       // 著衣 zhuó
             case '轉': return "转";                       // 轉輪 zhuǎn
             // 丙類：形近訛讀
+            case '伽': return prev == '殑' ? "嘎" : "茄";  // 殑伽 gā / 薄伽梵、補特伽羅 qié
+            case '薄': return next == '伽' ? "博" : "薄";  // 薄伽梵 bó
+            case '殑': return "擎";                       // qíng
+            case '蒭': return "除";                       // 苾蒭 bì chú
+            case '鄔': return "屋";                       // 鄔波… wū
+            case '曇': return "谈";                       // 尼煞曇 tán
+            case '胝': return "知";                       // 俱胝 zhī
+            case '庾': return "与";                       // 那庾多 yǔ
+            case '尒': return "尔";                       // 尒＝爾
+            case '筭': return "算";                       // 筭＝算
+            case '趺': return "夫";                       // 結加趺坐 fū
+            case '遶': return "绕";                       // 右遶 rào
+            case '剎': return "岔";                       // chà
+            case '㝡': return "最";                       // 㝡＝最
             case '缽': return "波";                       // bō
             case '諦': return "弟";                       // dì
             case '訖': return "气";                       // qì
@@ -49,15 +63,18 @@ public final class SutraSpeech {
             case '長': return next == '老' ? "掌" : "常";   // 長老 zhǎng / 人身長大 cháng
             case '還': return "环";                       // 還至本處 huán（TTS 默認 hái）
             case '寧': return "佞";                       // 寧為多不 nìng（TTS 默認 níng）
-            case '分': return prev == '日' ? "份" : "分";   // 初日分/中日分/後日分 fèn
-            case '量': return (prev == '思' || prev == '稱' || prev == '可') ? "梁" : "亮";
+            case '分': return (prev == '日' || prev == '初' || prev == '後' || prev == '時') ? "份" : "分";
+            case '量': return (prev == '思' || prev == '稱' || prev == '可' || prev == '取') ? "梁" : "亮";
                                                           // 思量、稱量、不可量 liáng；無量 liàng
-            case '應': return "英";                       // 應如是、應生瞋恨、應供養 皆 yīng（TTS 默認 yìng）
+            case '應': return next == '正' ? "硬" : "英";   // 應正等覺＝應供 yìng                       // 應如是、應生瞋恨、應供養 皆 yīng（TTS 默認 yìng）
             case '為':
-                // wèi（替、為著）：為人／為他人／為汝／為發大乘者／為利益眾生／為歌利王
-                if (next == '人' || next == '他' || next == '汝' || next == '發'
-                        || next == '利' || next == '歌') return "位";
-                // wéi（是、就是、做）：即為非住、寧為多不、無為法、名為…（用「唯」確保不讀 wèi）
+                // 「名為…」是判斷（wéi），優先於後面的字
+                if (prev == '名') return "唯";
+                // wèi（替、為著）
+                if (next == '人' || next == '他' || next == '汝' || next == '利'
+                        || next == '歌' || next == '欲' || next == '諸') return "位";
+                if (next == '發' && prev != '名') return "位";   // 為發大乘者說、普為發趣…者
+                // wéi（是、就是、做）：即為非住、寧為多不、無為法、為世間…之所供養（被動）
                 return "唯";
             case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
             case '相': return "象";                       // 我相、人相 xiàng（TTS 默認 xiāng）
