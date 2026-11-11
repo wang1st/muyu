@@ -46,6 +46,8 @@ public final class SutraSpeech {
             case '膝': return "西";                       // xī
             case '囑': return "主";                       // zhǔ
             case '筏': return "罚";                       // fá
+            case '應': return "英";                       // 應如是、應生瞋恨、應供養 皆 yīng（TTS 默認 yìng）
+            case '為': return (next == '人' || next == '他' || next == '汝') ? "位" : "为";  // 為人演說 wèi
             case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
             case '相': return "象";                       // 我相、人相 xiàng（TTS 默認 xiāng）
             default: return String.valueOf(ch);
