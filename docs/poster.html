@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Song'; src: local('Noto Serif CJK SC'), local('Noto Serif SC'), local('serif'); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; background:#0E0C0A; }
+  body {
+    font-family: 'Song', serif;
+    color:#E8E2D6;
+    position:relative;
+    overflow:hidden;
+  }
+  .glow {
+    position:absolute; inset:-20% -30% auto -30%; height:1200px;
+    background: radial-gradient(ellipse at 50% 38%, rgba(200,160,80,.16), rgba(200,160,80,.05) 42%, transparent 68%);
+  }
+  .grain {
+    position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .frame { position:absolute; inset:36px; border:1px solid rgba(200,160,80,.18); }
+  .content { position:absolute; inset:0; padding:88px 96px 76px; display:flex; flex-direction:column; }
+
+  .kicker { font-size:22px; letter-spacing:.42em; color:#8A7757; }
+  h1 { font-size:92px; line-height:1.08; letter-spacing:.05em; margin-top:34px; font-weight:600; }
+  h1 em { font-style:normal; color:#C8A050; }
+  .sub { margin-top:20px; font-size:26px; line-height:1.8; color:#A08C70; letter-spacing:.06em; }
+
+  .hero { position:relative; flex:1; display:flex; align-items:center; justify-content:center; margin-top:8px; }
+  .hero img { width:560px; filter: drop-shadow(0 34px 42px rgba(0,0,0,.62)); }
+  .hero .ground { position:absolute; bottom:52px; width:520px; height:56px; border-radius:50%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,.62), rgba(0,0,0,0) 70%); filter: blur(10px); }
+  .hero .ring {
+    position:absolute; width:520px; height:520px; border-radius:50%;
+    border:1px solid rgba(200,160,80,.13);
+  }
+  .hero .ring.two { width:680px; height:680px; border-color:rgba(200,160,80,.07); }
+
+  .feats { display:flex; gap:26px; margin-top:6px; }
+  .feat { flex:1; padding-top:20px; border-top:1px solid rgba(200,160,80,.28); }
+  .feat b { display:block; font-size:27px; color:#E8E2D6; font-weight:600; letter-spacing:.04em; }
+  .feat span { display:block; margin-top:10px; font-size:20px; line-height:1.65; color:#8A7757; }
+
+  .shots { display:flex; gap:22px; margin-top:34px; justify-content:space-between; align-items:flex-end; }
+  .shots figure { flex:1; margin:0; }
+  .shots figcaption { margin-top:14px; font-size:19px; color:#6B5D49; letter-spacing:.16em; text-align:center; }
+  .shots img { width:100%; height:286px; object-fit:cover; object-position:top center; border-radius:16px; opacity:.92; box-shadow:0 22px 40px rgba(0,0,0,.55); }
+
+  .foot { margin-top:auto; padding-top:28px; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(200,160,80,.18); }
+  .foot .left { font-size:21px; line-height:1.9; color:#6B5D49; letter-spacing:.03em; }
+  .foot .right { text-align:right; }
+  .foot .ver { font-size:40px; color:#C8A050; letter-spacing:.04em; }
+  .foot .repo { font-size:19px; color:#6B5D49; margin-top:8px; letter-spacing:.08em; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="frame"></div>
+  <div class="content">
+    <div class="kicker">桌面小部件 · 電子木魚</div>
+    <h1>敲一下，<br><em>讀一句</em>經。</h1>
+    <div class="sub">手指落下是木魚聲，抬起是經文一字。<br>金剛經 5174 字，逐字前進，讀滿循環。</div>
+
+    <div class="hero">
+      <div class="ring two"></div>
+      <div class="ring"></div>
+      <div class="ground"></div>
+      <img src="jade.png" alt="">
+    </div>
+
+    <div class="feats">
+      <div class="feat"><b>三種形態</b><span>剪影 / 微立體 / 立體 3D<br>和田玉·木·蜜蠟 可換</span></div>
+      <div class="feat"><b>誦讀出聲</b><span>敲一下讀一字<br>音色自選，讀音校正</span></div>
+      <div class="feat"><b>經文有據</b><span>對齊佛恩網底本<br>5174 字，逐處校勘</span></div>
+    </div>
+
+    <div class="shots">
+      <figure><img src="shot_home.png" alt=""><figcaption>桌面小部件</figcaption></figure>
+      <figure><img src="shot_look.png" alt=""><figcaption>三種形態</figcaption></figure>
+      <figure><img src="shot_tap.png" alt=""><figcaption>敲擊與誦讀</figcaption></figure>
+    </div>
+
+    <div class="foot">
+      <div class="left">Minis 出品　·　無需電腦，全程手機開發<br>Android 8.0+　·　開源</div>
+      <div class="right">
+        <div class="ver">木魚 v1.9</div>
+        <div class="repo">github.com/wang1st/muyu</div>
+      </div>
+    </div>
+  </div>
+  <div class="grain"></div>
+</body>
+</html>
