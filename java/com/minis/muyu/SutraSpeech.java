@@ -46,6 +46,12 @@ public final class SutraSpeech {
             case '膝': return "西";                       // xī
             case '囑': return "主";                       // zhǔ
             case '筏': return "罚";                       // fá
+            case '長': return next == '老' ? "掌" : "常";   // 長老 zhǎng / 人身長大 cháng
+            case '還': return "环";                       // 還至本處 huán（TTS 默認 hái）
+            case '寧': return "佞";                       // 寧為多不 nìng（TTS 默認 níng）
+            case '分': return prev == '日' ? "份" : "分";   // 初日分/中日分/後日分 fèn
+            case '量': return (prev == '思' || prev == '稱' || prev == '可') ? "梁" : "亮";
+                                                          // 思量、稱量、不可量 liáng；無量 liàng
             case '應': return "英";                       // 應如是、應生瞋恨、應供養 皆 yīng（TTS 默認 yìng）
             case '為': return (next == '人' || next == '他' || next == '汝') ? "位" : "为";  // 為人演說 wèi
             case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
