@@ -25,7 +25,7 @@ public final class SutraSpeech {
             case '昧': return "妹";                       // mèi
             case '塞': return "腮";                       // sāi（優婆塞）
             case '給': return "几";                       // jǐ（給孤獨園）
-            case '舍': return next == '衛' ? "设" : "舍";  // shè
+            case '舍': return (next == '衛' || next == '利') ? "设" : "舍";  // 舍衛國、舍利子 shè
             case '蜜': return "密";                       // 波羅蜜 mì
             case '槃': return "盘";                       // 涅槃 pán
             // 乙類：破讀別義
@@ -52,6 +52,8 @@ public final class SutraSpeech {
             case '遶': return "绕";                       // 右遶 rào
             case '剎': return "岔";                       // chà
             case '㝡': return "最";                       // 㝡＝最
+            case '罣': return "挂";                       // 心無罣礙 guà
+            case '埵': return "朵";                       // 菩提薩埵 duǒ
             case '缽': return "波";                       // bō
             case '諦': return "弟";                       // dì
             case '訖': return "气";                       // qì
