@@ -45,7 +45,7 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:paddingBottom="10dp"
-        android:text="《金剛般若波羅蜜經》流通本誦讀難字考 · 節選"
+        android:text="常見易錯字 · 讀音速查 · 金剛經 5174 字"
         android:textColor="@color/text3"
         android:textSize="11sp" />
 
