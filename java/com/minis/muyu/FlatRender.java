@@ -20,7 +20,7 @@ public final class FlatRender {
             {0xE6, 0xEC, 0xF0},
     };
 
-    /** 微立体三色：和田玉料 —— 羊脂白 / 青白玉 / 糖紅（糖玉偏红一档） */
+    /** 微立体三色：和田玉国标色类 —— 白玉 / 青白玉 / 糖玉 */
     private static final int[][] JADE = {
             {0xF7, 0xF2, 0xE4},
             {0xC6, 0xDC, 0xC9},
@@ -28,7 +28,7 @@ public final class FlatRender {
     };
 
     private static final String[] WHITE_LABELS = {"紙白", "象牙白", "月白"};
-    private static final String[] JADE_LABELS = {"羊脂白", "青白玉", "糖紅"};
+    private static final String[] JADE_LABELS = {"白玉", "青白玉", "糖玉"};
 
     /** 该形态下的三种配色名 */
     public static String[] toneLabels(int mode) {
