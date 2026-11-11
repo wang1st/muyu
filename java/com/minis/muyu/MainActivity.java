@@ -382,7 +382,9 @@ public class MainActivity extends Activity {
                 if (sel < 0) sel = 0;
                 sp.setSelection(sel, false);
                 sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    private boolean first = true;   // 首次是布局期回调，不发声
                     @Override public void onItemSelected(AdapterView<?> a, View v, int pos, long id) {
+                        if (first) { first = false; MuyuState.setVoiceName(MainActivity.this, vs.get(pos).getName()); return; }
                         MuyuState.setVoiceName(MainActivity.this, vs.get(pos).getName());
                         String s = SutraText.get(MainActivity.this);
                         int i = MuyuState.sutraIndex(MainActivity.this, s.length());
