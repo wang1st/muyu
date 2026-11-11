@@ -13,12 +13,31 @@ import android.graphics.Paint;
  * 剪影用 constant 矩阵把 RGB 直接刷成白色调；2.5D 用乘法矩阵，让明暗梯度带出体积。
  */
 public final class FlatRender {
-    /** 三种白：紙白 / 象牙白 / 月白 */
+    /** 剪影三色：紙白 / 象牙白 / 月白 */
     private static final int[][] WHITE = {
             {0xF3, 0xEE, 0xE2},
             {0xF8, 0xE7, 0xC9},
             {0xE6, 0xEC, 0xF0},
     };
+
+    /** 微立体三色：和田玉料 —— 羊脂白 / 青白玉 / 碧玉 */
+    private static final int[][] JADE = {
+            {0xF7, 0xF2, 0xE4},
+            {0xC6, 0xDC, 0xC9},
+            {0x64, 0x8F, 0x70},
+    };
+
+    private static final String[] WHITE_LABELS = {"紙白", "象牙白", "月白"};
+    private static final String[] JADE_LABELS = {"羊脂白", "青白玉", "碧玉"};
+
+    /** 该形态下的三种配色名 */
+    public static String[] toneLabels(int mode) {
+        return mode == MuyuState.PREVIEW_RELIEF ? JADE_LABELS : WHITE_LABELS;
+    }
+
+    private static int[][] tones(int mode) {
+        return mode == MuyuState.PREVIEW_RELIEF ? JADE : WHITE;
+    }
 
     private static Bitmap FLAT, RELIEF;
     private static String SIG = "";
@@ -43,7 +62,8 @@ public final class FlatRender {
         String sig = mode + "/" + tone + "/" + press;
         if (sig.equals(SIG) && CACHE != null) return CACHE;
 
-        int[] rgb = WHITE[Math.max(0, Math.min(WHITE.length - 1, tone))];
+        int[][] pal = tones(mode);
+        int[] rgb = pal[Math.max(0, Math.min(pal.length - 1, tone))];
         float r = rgb[0] / 255f, g = rgb[1] / 255f, b = rgb[2] / 255f;
 
         ColorMatrix cm = new ColorMatrix();

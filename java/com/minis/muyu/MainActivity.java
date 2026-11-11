@@ -181,6 +181,7 @@ public class MainActivity extends Activity {
 
         RadioGroup styleGroup = findViewById(R.id.style_group);
         int modeNow = MuyuState.previewMode(this);
+        updateToneLabels(modeNow);
         ((RadioButton) findViewById(modeNow == MuyuState.PREVIEW_3D ? R.id.style_jade
                 : (modeNow == MuyuState.PREVIEW_RELIEF ? R.id.style_relief : R.id.style_flat))).setChecked(true);
         styleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -190,6 +191,7 @@ public class MainActivity extends Activity {
                 MuyuState.setPreviewMode(MainActivity.this, mode);
                 setMaterialVisible(mode == MuyuState.PREVIEW_3D);
                 setToneVisible(mode != MuyuState.PREVIEW_3D);
+                updateToneLabels(mode);
                 FishWidget.renderAll(MainActivity.this, 0, false);
                 updatePreview();
             }
@@ -337,6 +339,18 @@ public class MainActivity extends Activity {
         ((View) findViewById(btns[Math.max(0, Math.min(btns.length - 1, lastTab))])).performClick();
 
         refresh();
+    }
+
+    /** 色彩区的三档随形态变化：剪影=三种白，微立体=三种玉料 */
+    private void updateToneLabels(int mode) {
+        int[] ids = {R.id.tone_paper, R.id.tone_ivory, R.id.tone_moon};
+        String[] names = FlatRender.toneLabels(mode);
+        for (int i = 0; i < ids.length && i < names.length; i++) {
+            RadioButton rb = findViewById(ids[i]);
+            if (rb != null) rb.setText(names[i]);
+        }
+        TextView head = findViewById(R.id.tone_header);
+        if (head != null) head.setText(mode == MuyuState.PREVIEW_RELIEF ? "玉料" : "色彩");
     }
 
     /** 音色下拉：列出系統所有中文音色，選中即保存並試讀 */
