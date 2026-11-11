@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; }
+  body {
+    font-family:'Song',serif; color:#2B2419; position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.6), transparent 55%),
+      #F6F1E7;
+  }
+  .grain { position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .gold { color:#A87E33; }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <div style="position:absolute; top:120px; left:96px; font-size:22px; letter-spacing:.42em; color:#8A7B60;">電子木魚 · 桌面小部件</div>
+
+  <div style="position:absolute; top:210px; left:92px; font-size:118px; line-height:1.22; letter-spacing:.02em; font-weight:600;">刷累了，</div>
+  <div style="position:absolute; top:380px; left:92px; font-size:118px; line-height:1.22; letter-spacing:.02em; font-weight:600;">敲<span class="gold">一下</span>。</div>
+
+  <div style="position:absolute; top:660px; left:96px; font-size:32px; color:#6B5D49; letter-spacing:.1em;">焦慮的反面，是一方安靜。</div>
+
+  <div style="position:absolute; left:0; right:0; top:780px; text-align:center;">
+    <img src="jade.png" style="width:560px; filter:drop-shadow(0 40px 48px rgba(60,45,20,.30));">
+  </div>
+
+  <div style="position:absolute; left:96px; right:96px; top:1320px; text-align:center; font-size:30px; color:#6B5D49; line-height:1.9;">
+    短視頻給你十五秒的焦慮，<br>木魚給你<span class="gold">一百零八次</span>的平靜。
+  </div>
+
+  <div style="position:absolute; left:96px; right:96px; top:1520px; display:flex; gap:24px;">
+    <div style="flex:1; border-top:1px solid #C9BCA4; padding-top:16px; font-size:22px; line-height:1.7; color:#6B5D49;"><span style="font-size:25px; color:#2B2419;">隨手敲</span><br>等車、排隊、睡前<br>桌面一敲，功德 +1</div>
+    <div style="flex:1; border-top:1px solid #C9BCA4; padding-top:16px; font-size:22px; line-height:1.7; color:#6B5D49;"><span style="font-size:25px; color:#2B2419;">讀出聲</span><br>敲一下，讀一個字<br>金剛經 5174 字循環</div>
+    <div style="flex:1; border-top:1px solid #C9BCA4; padding-top:16px; font-size:22px; line-height:1.7; color:#6B5D49;"><span style="font-size:25px; color:#2B2419;">有據</span><br>對齊佛恩網底本<br>讀音逐處校正</div>
+  </div>
+
+  <div style="position:absolute; left:96px; right:96px; bottom:70px; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid #C9BCA4; padding-top:22px;">
+    <div style="font-size:21px; line-height:1.9; color:#8A7B60;">開源 · 免費 · 無廣告<br>Android 8.0+</div>
+    <div style="text-align:right;">
+      <div style="font-size:36px; color:#A87E33; letter-spacing:.04em;">木魚 v1.9</div>
+      <div style="font-size:19px; color:#8A7B60; letter-spacing:.06em;">王猿外 出品 · github.com/wang1st/muyu</div>
+    </div>
+  </div>
+</body>
+</html>
