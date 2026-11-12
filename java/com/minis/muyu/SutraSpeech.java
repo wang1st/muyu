@@ -13,6 +13,7 @@ public final class SutraSpeech {
         char ch = sutra.charAt(idx);
         char prev = idx > 0 ? sutra.charAt(idx - 1) : 0;
         char next = idx + 1 < sutra.length() ? sutra.charAt(idx + 1) : 0;
+        char next2 = idx + 2 < sutra.length() ? sutra.charAt(idx + 2) : 0;
         switch (ch) {
             // 甲類：梵漢對音
             case '般': return "波";                       // 般若 bō rě
@@ -72,10 +73,12 @@ public final class SutraSpeech {
             case '為':
                 // 「名為…」是判斷（wéi），優先於後面的字
                 if (prev == '名') return "唯";
+                // 被動：為 + 人/歌 + 及物動詞（輕賤、割截）——主語是被作用者，讀 wéi
+                if ((next == '人' && next2 == '輕') || (next == '歌' && next2 == '割')) return "唯";
                 // wèi（替、為著）
                 if (next == '人' || next == '他' || next == '汝' || next == '利'
-                        || next == '歌' || next == '欲' || next == '諸') return "位";
-                if (next == '發' && prev != '名') return "位";   // 為發大乘者說、普為發趣…者
+                        || next == '欲' || next == '諸') return "位";
+                if (next == '發') return "位";   // 為發大乘者說、普為發趣…者
                 // wéi（是、就是、做）：即為非住、寧為多不、無為法、為世間…之所供養（被動）
                 return "唯";
             case '切': return "窃";                       // 一切 qiè（TTS 默認 qiē）
